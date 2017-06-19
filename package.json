@@ -1,8 +1,8 @@
 {
   "name": "yalp",
   "version": "0.0.1",
-  "description": "Hello Expo!",
-  "author": null,
+  "description": "a simpler alternative to yelp",
+  "author": "Ted Werbel",
   "private": true,
   "main": "main.js",
   "dependencies": {
