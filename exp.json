@@ -1,6 +1,6 @@
 {
   "name": "yalp",
-  "description": "An empty new project",
+  "description": "a simpler alternative to yelp",
   "slug": "yalp",
   "privacy": "public",
   "sdkVersion": "17.0.0",
