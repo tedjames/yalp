@@ -5,6 +5,9 @@
       "classes": true,
     },
     rules: {
+      'no-console': 'off',
+      'comma-dangle': 'off',
+      'import/no-extraneous-dependencies': 'off',
       'react/no-will-update-set-state': 'off',
       'react/void-dom-elements-no-children': 'off',
       'no-multi-assign': 'off',
