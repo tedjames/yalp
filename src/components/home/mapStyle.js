@@ -23,16 +23,16 @@ const mapStyle = [
         "elementType": "geometry",
         "stylers": [
             {
-                "lightness": "0"
+                "lightness": "14"
             },
             {
-                "saturation": "0"
+                "saturation": "15"
             },
             {
-                "color": "#f5f5f2"
+                "color": "#f2f4f5"
             },
             {
-                "gamma": "1"
+                "gamma": "0.70"
             }
         ]
     },
@@ -62,7 +62,43 @@ const mapStyle = [
         "elementType": "all",
         "stylers": [
             {
+                "visibility": "simplified"
+            }
+        ]
+    },
+    {
+        "featureType": "poi.attraction",
+        "elementType": "all",
+        "stylers": [
+            {
                 "visibility": "off"
+            }
+        ]
+    },
+    {
+        "featureType": "poi.business",
+        "elementType": "all",
+        "stylers": [
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "featureType": "poi.government",
+        "elementType": "all",
+        "stylers": [
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "featureType": "poi.medical",
+        "elementType": "all",
+        "stylers": [
+            {
+                "visibility": "on"
             }
         ]
     },
@@ -71,8 +107,44 @@ const mapStyle = [
         "elementType": "geometry.fill",
         "stylers": [
             {
-                "color": "#bae5ce"
+                "color": "#bae5c6"
             },
+            {
+                "visibility": "on"
+            },
+            {
+                "saturation": "26"
+            },
+            {
+                "gamma": "1.03"
+            },
+            {
+                "lightness": "14"
+            }
+        ]
+    },
+    {
+        "featureType": "poi.place_of_worship",
+        "elementType": "all",
+        "stylers": [
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "featureType": "poi.school",
+        "elementType": "all",
+        "stylers": [
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "featureType": "poi.sports_complex",
+        "elementType": "all",
+        "stylers": [
             {
                 "visibility": "on"
             }
@@ -111,12 +183,6 @@ const mapStyle = [
             },
             {
                 "visibility": "simplified"
-            },
-            {
-                "saturation": "0"
-            },
-            {
-                "lightness": "30"
             }
         ]
     },
@@ -134,7 +200,10 @@ const mapStyle = [
         "elementType": "labels.text.fill",
         "stylers": [
             {
-                "color": "#787878"
+                "color": "#707070"
+            },
+            {
+                "visibility": "on"
             }
         ]
     },
@@ -144,6 +213,15 @@ const mapStyle = [
         "stylers": [
             {
                 "visibility": "off"
+            }
+        ]
+    },
+    {
+        "featureType": "road.local",
+        "elementType": "labels.text.fill",
+        "stylers": [
+            {
+                "color": "#afafaf"
             }
         ]
     },
@@ -176,10 +254,34 @@ const mapStyle = [
     },
     {
         "featureType": "transit.station.rail",
+        "elementType": "labels.text",
+        "stylers": [
+            {
+                "visibility": "simplified"
+            }
+        ]
+    },
+    {
+        "featureType": "transit.station.rail",
         "elementType": "labels.text.fill",
         "stylers": [
             {
-                "color": "#43321e"
+                "color": "#1c90b4"
+            },
+            {
+                "visibility": "simplified"
+            }
+        ]
+    },
+    {
+        "featureType": "transit.station.rail",
+        "elementType": "labels.text.stroke",
+        "stylers": [
+            {
+                "color": "#f5f5f5"
+            },
+            {
+                "visibility": "simplified"
             }
         ]
     },
@@ -188,16 +290,16 @@ const mapStyle = [
         "elementType": "labels.icon",
         "stylers": [
             {
-                "hue": "#ff6c00"
+                "hue": "#00b3ff"
             },
             {
-                "lightness": "4"
+                "lightness": "-3"
             },
             {
-                "gamma": "0.75"
+                "gamma": "1.15"
             },
             {
-                "saturation": "-68"
+                "saturation": "-45"
             }
         ]
     },
