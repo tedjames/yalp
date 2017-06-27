@@ -1,7 +1,7 @@
 import Expo from 'expo';
 import React from 'react';
-import App from './src';
+import Router from './src';
 
-const Main = () => <App />;
+const Main = () => <Router />;
 
 Expo.registerRootComponent(Main);
