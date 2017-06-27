@@ -15,15 +15,16 @@ const styles = {
     alignItems: 'center',
     backgroundColor: '#f5f5f5',
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.285,
-    shadowRadius: 30,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.35,
+    shadowRadius: 23,
     elevation: 1,
     borderColor: '#eee',
-    borderWidth: 0.5
+    borderWidth: 0.5,
+    borderRadius: 2
   },
   searchText: {
-    color: '#444',
+    color: '#535860',
     fontFamily: 'open-sans-light',
     fontSize: 19
   },
