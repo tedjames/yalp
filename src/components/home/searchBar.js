@@ -7,7 +7,7 @@ const styles = {
   container: {
     position: 'absolute',
     height: 57.5,
-    width: '80%',
+    width: '85%',
     alignSelf: 'center',
     top: 60,
     flexDirection: 'row',
@@ -68,7 +68,7 @@ export default class SearchBar extends Component {
         <View style={styles.divider} />
 
         <TouchableOpacity style={{ flex: 1, top: 1.5, alignItems: 'center', justifyContent: 'center', height: '100%' }}>
-          <Octicons name="settings" size={22} color="#7a7a7a" />
+          <Octicons name="settings" size={22} color="#777" />
         </TouchableOpacity>
       </View>
     );
