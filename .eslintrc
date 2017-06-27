@@ -5,6 +5,7 @@
       "classes": true,
     },
     rules: {
+      'global-require': 'off',
       'no-console': 'off',
       'comma-dangle': 'off',
       'import/no-extraneous-dependencies': 'off',
@@ -131,7 +132,7 @@
 
       // Prevent usage of setState in componentDidMount
       // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-did-mount-set-state.md
-      'react/no-did-mount-set-state': ['error'],
+      'react/no-did-mount-set-state': 'off',
 
       // Prevent usage of setState in componentDidUpdate
       // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-did-update-set-state.md
