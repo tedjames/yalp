@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { Octicons } from '@expo/vector-icons';
-import { MapView } from 'expo';
+import { MapView, Font } from 'expo';
 import mapStyle from './mapStyle';
 
 // Used to hide unneccsary warning message from MapView
@@ -20,17 +20,37 @@ const styles = {
     backgroundColor: 'white'
   },
   searchText: {
-    color: 'black'
+    color: '#444',
+    fontFamily: 'open-sans-light',
+    fontSize: 20
   },
   divider: {
     width: 1,
     height: 35,
     alignSelf: 'center',
     backgroundColor: '#ccc'
+  },
+  searchIcon: {
+    paddingRight: 15,
+    paddingLeft: 15
   }
 };
 
 export default class Home extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      fontLoaded: false,
+    };
+  }
+  async componentDidMount() {
+    await Font.loadAsync({
+      'open-sans-light': require('../../../assets/fonts/OpenSans-Light.ttf'),
+    });
+
+    this.setState({ fontLoaded: true });
+  }
   render() {
     return (
       <View style={{ flex: 1 }}>
@@ -47,9 +67,9 @@ export default class Home extends Component {
         />
         <View style={styles.container}>
           <View>
-            <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center' }}>
-              <Octicons name="search" size={32} color="#333" />
-              <Text style={styles.searchText}>What to eat?</Text>
+            <TouchableOpacity activeOpacity={0.65} style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <Octicons style={styles.searchIcon} name="search" size={22} color="#333" />
+              {this.state.fontLoaded ? <Text style={styles.searchText}>What to eat?</Text> : null}
             </TouchableOpacity>
           </View>
 
