@@ -10,29 +10,38 @@ console.ignoredYellowBox = ['Warning: View.propTypes'];
 const styles = {
   container: {
     position: 'absolute',
-    height: 60,
+    height: 57.5,
     width: '80%',
     alignSelf: 'center',
     top: 60,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    backgroundColor: 'white'
+    backgroundColor: '#f5f5f5',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.285,
+    shadowRadius: 30,
+    elevation: 1,
   },
   searchText: {
     color: '#444',
     fontFamily: 'open-sans-light',
-    fontSize: 20
+    fontSize: 19
   },
   divider: {
     width: 1,
     height: 35,
     alignSelf: 'center',
-    backgroundColor: '#ccc'
+    backgroundColor: '#ddd'
   },
-  searchIcon: {
-    paddingRight: 15,
-    paddingLeft: 15
+  squareIcon: {
+    height: 6,
+    width: 6,
+    top: 1,
+    marginRight: 16,
+    marginLeft: 20,
+    backgroundColor: '#333'
   }
 };
 
@@ -66,17 +75,17 @@ export default class Home extends Component {
           }}
         />
         <View style={styles.container}>
-          <View>
-            <TouchableOpacity activeOpacity={0.65} style={{ flexDirection: 'row', alignItems: 'center' }}>
-              <Octicons style={styles.searchIcon} name="search" size={22} color="#333" />
-              {this.state.fontLoaded ? <Text style={styles.searchText}>What to eat?</Text> : null}
-            </TouchableOpacity>
-          </View>
+          <TouchableOpacity activeOpacity={0.6} style={{ flex: 4, flexDirection: 'row', alignItems: 'center', height: '100%' }}>
+            <View style={styles.squareIcon} />
+            {this.state.fontLoaded ? <Text style={styles.searchText}>What to eat?</Text> : null}
+          </TouchableOpacity>
 
 
           <View style={styles.divider} />
 
-          <Octicons name="settings" size={32} color="#333" />
+          <TouchableOpacity style={{ flex: 1, top: 1.5, alignItems: 'center', justifyContent: 'center', height: '100%' }}>
+            <Octicons name="settings" size={22} color="#7a7a7a" />
+          </TouchableOpacity>
         </View>
       </View>
     );
