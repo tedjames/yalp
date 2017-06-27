@@ -3,6 +3,7 @@ import { View } from 'react-native';
 import { MapView } from 'expo';
 import mapStyle from './mapStyle';
 import SearchBar from './searchBar';
+import ShortcutBar from './shortcutBar';
 
 // Used to hide unneccsary warning message from MapView
 console.ignoredYellowBox = ['Warning: View.propTypes'];
@@ -23,6 +24,7 @@ export default class Home extends Component {
           }}
         />
         <SearchBar />
+        <ShortcutBar />
       </View>
     );
   }
