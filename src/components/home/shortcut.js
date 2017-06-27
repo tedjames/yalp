@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { TouchableOpacity, View, Text } from 'react-native';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
+import { Font } from 'expo';
 
 const styles = {
   circle: {
@@ -18,7 +19,9 @@ const styles = {
   },
   label: {
     alignSelf: 'center',
-    marginTop: 10
+    marginTop: 12,
+    fontFamily: 'open-sans-regular',
+    color: '#333'
   }
 };
 
@@ -36,14 +39,28 @@ const renderIcon = (label) => {
 };
 
 export default class Shortcut extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      fontLoaded: false,
+    };
+  }
+  async componentDidMount() {
+    await Font.loadAsync({
+      'open-sans-regular': require('../../../assets/fonts/OpenSans-Regular.ttf'),
+    });
+
+    this.setState({ fontLoaded: true });
+  }
   render() {
     const { label } = this.props;
     return (
-      <TouchableOpacity activeOpacity={0.6} style={{ backgroundColor: 'transparent' }}>
+      <TouchableOpacity activeOpacity={0.5} style={{ backgroundColor: 'transparent' }}>
         <View style={styles.circle}>
           {renderIcon(label)}
         </View>
-        <Text style={styles.label}>{label}</Text>
+        {this.state.fontLoaded ? <Text style={styles.label}>{label}</Text> : null}
       </TouchableOpacity>
     );
   }
