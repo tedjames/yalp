@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, TouchableOpacity, Text, ScrollView } from 'react-native';
 import { Font } from 'expo';
 import { connect } from 'react-redux';
-import { toggleFilterModal } from '../../Actions';
+import { toggleFilterModal, toggleStatusBar } from '../../Actions';
 
 const styles = {
   container: {
@@ -57,7 +57,11 @@ class FilterModal extends Component {
               <Text style={styles.sectionHeader}>Heading</Text>
             </ScrollView>
 
-            <TouchableOpacity activeOpacity={0.95} style={styles.submitButton}>
+            <TouchableOpacity
+              onPress={() => this.props.toggleStatusBar()}
+              activeOpacity={0.95}
+              style={styles.submitButton}
+            >
               {fontLoaded ? <Text style={styles.submitText}>APPLY</Text> : null}
             </TouchableOpacity>
           </View>
@@ -69,7 +73,7 @@ class FilterModal extends Component {
 }
 
 const mapStateToProps = state => ({
-  showFilterModal: state.modals
+  showFilterModal: state.nav
 });
 
-export default connect(mapStateToProps, { toggleFilterModal })(FilterModal);
+export default connect(mapStateToProps, { toggleFilterModal, toggleStatusBar })(FilterModal);
