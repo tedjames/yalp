@@ -5,6 +5,7 @@
       "classes": true,
     },
     rules: {
+      'import/prefer-default-export': 'off',
       'global-require': 'off',
       'no-console': 'off',
       'comma-dangle': 'off',
