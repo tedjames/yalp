@@ -1,1 +1,1 @@
-export * from './modalActions';
+export * from './navActions';

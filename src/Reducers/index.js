@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
-import ModalReducer from './modalReducer';
+import NavReducer from './navReducer';
 
 export default combineReducers({
-  modals: ModalReducer
+  nav: NavReducer
 });
