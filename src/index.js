@@ -1,8 +1,17 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import Reducers from './Reducers';
 import Home from './components/home';
 
-const Router = () => (
-  <Home />
-);
+export default class Router extends Component {
+  render() {
+    const store = createStore(Reducers);
 
-export default Router;
+    return (
+      <Provider store={store}>
+        <Home />
+      </Provider>
+    );
+  }
+}
