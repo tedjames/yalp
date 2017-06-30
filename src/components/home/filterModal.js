@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, TouchableOpacity, Text, ScrollView } from 'react-native';
-import { Font, LinearGradient } from 'expo';
+import { Font } from 'expo';
 import { connect } from 'react-redux';
 import { toggleFilterModal, toggleStatusBar } from '../../Actions';
 import FilterSection from './filterSection';
