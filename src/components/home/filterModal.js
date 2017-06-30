@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import { View, TouchableOpacity, Text, ScrollView } from 'react-native';
-import { Font } from 'expo';
+import { Font, LinearGradient } from 'expo';
 import { connect } from 'react-redux';
 import { toggleFilterModal, toggleStatusBar } from '../../Actions';
+import FilterSection from './filterSection';
+import FilterOption from './filterOption';
+import FilterHeader from './filterHeader';
 
 const styles = {
   container: {
@@ -14,22 +17,29 @@ const styles = {
     backgroundColor: 'rgba(0, 0, 0, 0.6)',
   },
   modal: {
-    backgroundColor: '#f5f5f5',
-    height: 100,
-    width: '100%'
+    height: 365,
+    width: '100%',
+    backgroundColor: '#fff',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.185,
+    shadowRadius: 12,
+    elevation: 1,
   },
   submitButton: {
-    backgroundColor: '#1a1a1a'
+    backgroundColor: '#fff',
+    borderTopWidth: 1,
+    borderColor: '#eee',
+    height: 50,
+    justifyContent: 'center'
   },
   submitText: {
     alignSelf: 'center',
-    fontFamily: 'open-sans-regular',
+    fontFamily: 'rubik-regular',
     fontSize: 13,
-    color: '#f5f5f5',
-    letterSpacing: 3.5,
-    marginTop: 20,
-    marginBottom: 20,
-  }
+    color: '#222',
+    letterSpacing: 1
+  },
 };
 
 class FilterModal extends Component {
@@ -43,6 +53,13 @@ class FilterModal extends Component {
   async componentDidMount() {
     await Font.loadAsync({
       'open-sans-regular': require('../../../assets/fonts/OpenSans-Regular.ttf'),
+      'open-sans-semibold': require('../../../assets/fonts/OpenSans-SemiBold.ttf'),
+      'open-sans-light': require('../../../assets/fonts/OpenSans-Light.ttf'),
+      'open-sans-bold': require('../../../assets/fonts/OpenSans-Bold.ttf'),
+      'open-sans-extrabold': require('../../../assets/fonts/OpenSans-ExtraBold.ttf'),
+      'rubik-light': require('../../../assets/fonts/Rubik-Light.ttf'),
+      'rubik-medium': require('../../../assets/fonts/Rubik-Medium.ttf'),
+      'rubik-regular': require('../../../assets/fonts/Rubik-Regular.ttf'),
     });
 
     this.setState({ fontLoaded: true });
@@ -54,16 +71,35 @@ class FilterModal extends Component {
         <View style={styles.container}>
           <View style={styles.modal}>
             <ScrollView style={styles.scrollview}>
-              <Text style={styles.sectionHeader}>Heading</Text>
+              <FilterHeader />
+              <FilterSection name="Sort by">
+                <FilterOption name="Best Match" iconType="simplelineicons" iconName="like" iconSize={20} />
+                <FilterOption name="Distance" iconType="simplelineicons" iconName="compass" iconSize={20} />
+                <FilterOption name="Rating" iconType="simplelineicons" iconName="badge" iconSize={20} />
+                <FilterOption name="Most Reviewed" iconType="simplelineicons" iconName="fire" iconSize={20} />
+              </FilterSection>
+              <FilterSection name="Planning for">
+                <FilterOption name="Delivery" iconName="ios-car-outline" />
+                <FilterOption name="Pickup" iconName="ios-cart-outline" iconSize={26} />
+                <FilterOption name="Reservations" iconName="ios-calendar-outline" />
+              </FilterSection>
+              <FilterSection name="Preferences">
+                <FilterOption name="Accepts Credit Cards" iconName="ios-card-outline" />
+                <FilterOption name="Free Wifi" iconName="ios-wifi-outline" />
+                <FilterOption name="Live Music" iconName="ios-musical-notes-outline" />
+                <FilterOption name="Happy Hour" iconName="ios-wine-outline" />
+                <FilterOption name="Vegetarian Friendly" iconName="ios-nutrition-outline" />
+                <FilterOption name="Wheelchair Accessible" iconType="fontawesome" iconName="wheelchair" iconSize={20} />
+                <FilterOption name="Dogs Allowed" iconName="ios-paw-outline" />
+                <FilterOption name="Military Discount" iconName="ios-jet-outline" />
+              </FilterSection>
             </ScrollView>
 
-            <TouchableOpacity
-              onPress={() => this.props.toggleStatusBar()}
-              activeOpacity={0.95}
-              style={styles.submitButton}
-            >
-              {fontLoaded ? <Text style={styles.submitText}>APPLY</Text> : null}
-            </TouchableOpacity>
+            <View style={styles.submitButton}>
+              <TouchableOpacity style={{ flex: 1, justifyContent: 'center' }} onPress={() => this.props.toggleStatusBar()}>
+                {fontLoaded ? <Text style={styles.submitText}>DONE</Text> : null}
+              </TouchableOpacity>
+            </View>
           </View>
 
         </View>
