@@ -4,11 +4,12 @@ import {
 } from '../Actions/types';
 
 const INITIAL_STATE = {
-  showFilterModal: true,
+  showFilterModal: false,
   showStatusBar: true
 };
 
 export default (state = INITIAL_STATE, action) => {
+  console.log('ACTION FIRED: ', action);
   switch (action.type) {
     case TOGGLE_FILTER_MODAL:
       return { ...state, showFilterModal: !state.showFilterModal };
