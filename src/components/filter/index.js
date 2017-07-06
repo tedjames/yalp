@@ -92,26 +92,26 @@ class FilterModal extends Component {
     Animated.parallel([
       Animated.timing(this.state.backdropOpacity, {
         toValue: 0,
-        duration: fadeDuration,
+        duration: 310,
+        easing: Easing.out(Easing.sin),
         useNativeDriver: true
       }),
       Animated.timing(this.state.modalPosition, {
         toValue: -modalHeight,
-        easing: Easing.poly(2),
-        duration: 200,
+        easing: Easing.inOut(Easing.back(1.25)),
+        duration: 400,
         useNativeDriver: true
       }),
       Animated.timing(this.state.sectionOpacity, {
         toValue: 0,
-        duration: 700,
+        duration: 250,
         easing: Easing.out(Easing.sin),
         useNativeDriver: true
       }),
       Animated.timing(this.state.sectionPosition, {
         toValue: -sectionOffset,
-        duration: 650,
-        delay: 50,
-        easing: Easing.out(Easing.sin),
+        duration: 250,
+        easing: Easing.out(Easing.back(2.5)),
         useNativeDriver: true
       })
     ]).start();
