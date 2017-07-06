@@ -6,6 +6,11 @@ import FilterOption from './filterOption';
 import FilterHeader from './filterHeader';
 import FilterSubmit from './filterSubmit';
 
+const fadeDuration = 500;
+const fadeOpacity = 0.5;
+const sectionOffset = 20;
+const modalHeight = 395;
+
 const styles = {
   container: {
     position: 'absolute',
@@ -15,11 +20,12 @@ const styles = {
     zIndex: 1
   },
   modal: {
-    height: 375,
+    height: modalHeight,
     width: '100%',
     backgroundColor: '#fff',
     borderBottomRightRadius: 5,
-    borderBottomLeftRadius: 5
+    borderBottomLeftRadius: 5,
+    paddingTop: 20
   },
   backdrop: {
     height: '100%',
@@ -27,10 +33,6 @@ const styles = {
     backgroundColor: '#000',
   }
 };
-
-const fadeDuration = 500;
-const fadeOpacity = 0.5;
-const sectionOffset = 15;
 
 class FilterModal extends Component {
   constructor(props) {
@@ -43,7 +45,7 @@ class FilterModal extends Component {
     this.state = {
       fontLoaded: false,
       backdropOpacity: new Animated.Value(0),
-      modalPosition: new Animated.Value(-375),
+      modalPosition: new Animated.Value(-modalHeight),
       sectionPosition: new Animated.Value(-5),
       sectionOpacity: new Animated.Value(0)
     };
@@ -66,20 +68,20 @@ class FilterModal extends Component {
         useNativeDriver: true
       }),
       Animated.timing(this.state.modalPosition, {
-        toValue: 0,
+        toValue: -20,
         duration: 350,
         easing: Easing.out(Easing.cubic),
         useNativeDriver: true
       }),
       Animated.timing(this.state.sectionOpacity, {
         toValue: 1,
-        duration: 650,
-        easing: Easing.out(Easing.sin),
+        duration: 600,
+        easing: Easing.out(Easing.poly(1)),
         useNativeDriver: true
       }),
       Animated.timing(this.state.sectionPosition, {
         toValue: 0,
-        duration: 550,
+        duration: 500,
         delay: 50,
         easing: Easing.out(Easing.sin),
         useNativeDriver: true
@@ -94,7 +96,7 @@ class FilterModal extends Component {
         useNativeDriver: true
       }),
       Animated.timing(this.state.modalPosition, {
-        toValue: -375,
+        toValue: -modalHeight,
         easing: Easing.poly(2),
         duration: 200,
         useNativeDriver: true
@@ -130,7 +132,7 @@ class FilterModal extends Component {
         useNativeDriver: true
       }),
       Animated.timing(this.state.modalPosition, {
-        toValue: -375,
+        toValue: -modalHeight,
         easing: Easing.inOut(Easing.back(1.25)),
         duration: 400,
         useNativeDriver: true
@@ -159,7 +161,7 @@ class FilterModal extends Component {
         useNativeDriver: true
       }),
       Animated.timing(this.state.modalPosition, {
-        toValue: -375,
+        toValue: -modalHeight,
         easing: Easing.inOut(Easing.back(1.25)),
         duration: 400,
         useNativeDriver: true
@@ -180,10 +182,11 @@ class FilterModal extends Component {
   }
 
   render() {
-    const { sectionPosition, sectionOpacity } = this.state;
     const { showFilterModal } = this.props;
     const backdropOpacity = { opacity: this.state.backdropOpacity };
     const modalPosition = { position: 'absolute', top: 0, transform: [{ translateY: this.state.modalPosition }] };
+    const sectionPosition = { transform: [{ translateY: this.state.sectionPosition }] };
+    const sectionOpacity = { opacity: this.state.sectionOpacity };
 
     if (showFilterModal) {
       return (

@@ -37,9 +37,7 @@ export default class FilterSection extends Component {
   }
   render() {
     const { fontLoaded } = this.state;
-    const { name, children } = this.props;
-    const sectionPosition = { transform: [{ translateY: this.props.sectionPosition }] };
-    const sectionOpacity = { opacity: this.props.sectionOpacity };
+    const { name, children, sectionPosition, sectionOpacity } = this.props;
 
     return (
       <Animated.View style={[sectionPosition, sectionOpacity]}>
