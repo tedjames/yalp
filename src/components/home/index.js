@@ -12,7 +12,7 @@ class Home extends Component {
     const { toggleFilterModal } = this.props;
     return (
       <View style={{ flex: 1 }}>
-        <StatusBar hidden={false} />
+        <StatusBar hidden={false} animated />
         <FilterModal toggle={toggleFilterModal} />
         <GoogleMaps />
         <SearchBar onFilterPress={toggleFilterModal} />
