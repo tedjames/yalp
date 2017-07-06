@@ -60,6 +60,7 @@ export default class SearchBar extends Component {
     this.setState({ fontLoaded: true });
   }
   render() {
+    const { onFilterPress } = this.props;
     return (
       <View style={styles.container}>
         <TouchableOpacity activeOpacity={0.6} style={{ flex: 4, flexDirection: 'row', alignItems: 'center', height: '100%' }}>
@@ -70,7 +71,7 @@ export default class SearchBar extends Component {
 
         <View style={styles.divider} />
 
-        <TouchableOpacity style={{ flex: 1, top: 1.5, alignItems: 'center', justifyContent: 'center', height: '100%' }}>
+        <TouchableOpacity onPress={onFilterPress} style={{ flex: 1, top: 1.5, alignItems: 'center', justifyContent: 'center', height: '100%' }}>
           <Octicons name="settings" size={22} color="#777" />
         </TouchableOpacity>
       </View>
