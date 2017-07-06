@@ -73,7 +73,7 @@ class FilterModal extends Component {
       }),
       Animated.timing(this.state.sectionOpacity, {
         toValue: 1,
-        duration: 600,
+        duration: 650,
         easing: Easing.out(Easing.sin),
         useNativeDriver: true
       }),
