@@ -8,7 +8,7 @@ console.ignoredYellowBox = ['Warning: View.propTypes'];
 
 const GEOLOCATION_OPTIONS = { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 };
 
-export default class GoogleMaps extends Component {
+export default class Maps extends Component {
   constructor(props) {
     super(props);
 

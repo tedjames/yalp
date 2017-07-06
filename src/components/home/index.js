@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { toggleFilterModal } from '../../Actions';
 import SearchBar from './searchBar';
 import ShortcutBar from './shortcutBar';
-import GoogleMaps from './googleMaps';
+import Maps from '../maps';
 import FilterModal from '../filter';
 
 class Home extends Component {
@@ -14,7 +14,7 @@ class Home extends Component {
       <View style={{ flex: 1 }}>
         <StatusBar hidden={false} animated />
         <FilterModal toggle={toggleFilterModal} />
-        <GoogleMaps />
+        <Maps />
         <SearchBar onFilterPress={toggleFilterModal} />
         <ShortcutBar />
       </View>
