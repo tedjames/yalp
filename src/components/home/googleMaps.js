@@ -43,8 +43,8 @@ export default class GoogleMaps extends Component {
     const region = {
       latitude: location.coords.latitude,
       longitude: location.coords.longitude,
-      latitudeDelta: 0.013,
-      longitudeDelta: 0.003,
+      latitudeDelta: 0.007,
+      longitudeDelta: 0.0001,
     };
     this.setState({ location, region });
   }
