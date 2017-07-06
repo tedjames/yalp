@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View, ScrollView, Animated, Easing, TouchableWithoutFeedback } from 'react-native';
+import { View, ScrollView, Animated, Easing, TouchableWithoutFeedback, StatusBar } from 'react-native';
 import FilterSection from './filterSection';
 import FilterOption from './filterOption';
 import FilterHeader from './filterHeader';
@@ -67,19 +67,19 @@ class FilterModal extends Component {
       }),
       Animated.timing(this.state.modalPosition, {
         toValue: 0,
-        duration: 500,
+        duration: 350,
         easing: Easing.out(Easing.cubic),
         useNativeDriver: true
       }),
       Animated.timing(this.state.sectionOpacity, {
         toValue: 1,
-        duration: 700,
+        duration: 600,
         easing: Easing.out(Easing.sin),
         useNativeDriver: true
       }),
       Animated.timing(this.state.sectionPosition, {
         toValue: 0,
-        duration: 650,
+        duration: 550,
         delay: 50,
         easing: Easing.out(Easing.sin),
         useNativeDriver: true
@@ -188,6 +188,7 @@ class FilterModal extends Component {
     if (showFilterModal) {
       return (
         <View style={styles.container}>
+          <StatusBar hidden animated />
           <TouchableWithoutFeedback onPress={this.handleClose} style={{ position: 'absolute' }}>
             <Animated.View style={[styles.backdrop, backdropOpacity]} />
           </TouchableWithoutFeedback>
