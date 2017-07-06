@@ -5,7 +5,7 @@ import { toggleFilterModal } from '../../Actions';
 import SearchBar from './searchBar';
 import ShortcutBar from './shortcutBar';
 import GoogleMaps from './googleMaps';
-import FilterModal from './filterModal';
+import FilterModal from '../filter';
 
 class Home extends Component {
   render() {
