@@ -10,7 +10,7 @@ const styles = {
     alignItems: 'center'
   },
   resetButton: {
-    paddingTop: 15,
+    paddingTop: 20,
     paddingRight: 15,
     paddingLeft: 20
   },
@@ -21,7 +21,7 @@ const styles = {
     fontSize: 12
   },
   closeButton: {
-    paddingTop: 15,
+    paddingTop: 20,
     paddingRight: 50,
     paddingLeft: 15
   }
@@ -43,9 +43,10 @@ export default class filterHeader extends Component {
   }
   render() {
     const { fontLoaded } = this.state;
+    const { handleClose } = this.props;
     return (
       <View style={styles.filterHeader}>
-        <TouchableOpacity style={styles.closeButton}>
+        <TouchableOpacity style={styles.closeButton} onPress={handleClose}>
           <Ionicons style={styles.closeIcon} name="ios-close" size={42.5} color="#3A3A48" />
         </TouchableOpacity>
         <TouchableOpacity style={styles.resetButton}>
