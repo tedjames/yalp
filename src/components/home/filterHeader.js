@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { Animated, Text, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { Font } from 'expo';
 
@@ -43,16 +43,16 @@ export default class filterHeader extends Component {
   }
   render() {
     const { fontLoaded } = this.state;
-    const { handleClose } = this.props;
+    const { handleClose, headerOpacity, headerPosition } = this.props;
     return (
-      <View style={styles.filterHeader}>
+      <Animated.View style={[styles.filterHeader, headerOpacity, headerPosition]}>
         <TouchableOpacity style={styles.closeButton} onPress={handleClose}>
           <Ionicons style={styles.closeIcon} name="ios-close" size={42.5} color="#3A3A48" />
         </TouchableOpacity>
         <TouchableOpacity style={styles.resetButton}>
           {fontLoaded ? <Text style={styles.resetText}>RESET</Text> : null}
         </TouchableOpacity>
-      </View>
+      </Animated.View>
     );
   }
 }

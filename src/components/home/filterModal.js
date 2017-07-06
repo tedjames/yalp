@@ -199,6 +199,8 @@ class FilterModal extends Component {
             <ScrollView style={styles.scrollview}>
               <FilterHeader
                 handleClose={this.handleClose}
+                headerOpacity={sectionOpacity}
+                headerPosition={sectionPosition}
               />
               <FilterSection name="Sort by" sectionPosition={sectionPosition} sectionOpacity={sectionOpacity}>
                 <FilterOption name="Best Match" iconType="simplelineicons" iconName="like" iconSize={20} />
