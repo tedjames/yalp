@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import { View, TouchableOpacity, Text, ScrollView } from 'react-native';
-import { Font } from 'expo';
 import { connect } from 'react-redux';
-import { toggleFilterModal, toggleStatusBar } from '../../Actions';
+import { View, ScrollView, Animated, Easing, TouchableWithoutFeedback } from 'react-native';
 import FilterSection from './filterSection';
 import FilterOption from './filterOption';
 import FilterHeader from './filterHeader';
+import FilterSubmit from './filterSubmit';
 
 const styles = {
   container: {
@@ -13,77 +12,202 @@ const styles = {
     width: '100%',
     height: '100%',
     alignItems: 'center',
-    zIndex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.6)',
+    zIndex: 1
   },
   modal: {
-    height: 365,
+    height: 375,
     width: '100%',
     backgroundColor: '#fff',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 3 },
-    shadowOpacity: 0.185,
-    shadowRadius: 12,
-    elevation: 1,
+    borderBottomRightRadius: 5,
+    borderBottomLeftRadius: 5
   },
-  submitButton: {
-    backgroundColor: '#fff',
-    borderTopWidth: 1,
-    borderColor: '#eee',
-    height: 50,
-    justifyContent: 'center'
-  },
-  submitText: {
-    alignSelf: 'center',
-    fontFamily: 'rubik-regular',
-    fontSize: 13,
-    color: '#222',
-    letterSpacing: 1
-  },
+  backdrop: {
+    height: '100%',
+    width: '100%',
+    backgroundColor: '#000',
+  }
 };
+
+const fadeDuration = 500;
+const fadeOpacity = 0.5;
+const sectionOffset = 15;
 
 class FilterModal extends Component {
   constructor(props) {
     super(props);
+    this.animateOpen = this.animateOpen.bind(this);
+    this.animateClose = this.animateClose.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleClose = this.handleClose.bind(this);
 
     this.state = {
       fontLoaded: false,
+      backdropOpacity: new Animated.Value(0),
+      modalPosition: new Animated.Value(-375),
+      sectionPosition: new Animated.Value(-5),
+      sectionOpacity: new Animated.Value(0)
     };
   }
-  async componentDidMount() {
-    await Font.loadAsync({
-      'open-sans-regular': require('../../../assets/fonts/OpenSans-Regular.ttf'),
-      'open-sans-semibold': require('../../../assets/fonts/OpenSans-SemiBold.ttf'),
-      'open-sans-light': require('../../../assets/fonts/OpenSans-Light.ttf'),
-      'open-sans-bold': require('../../../assets/fonts/OpenSans-Bold.ttf'),
-      'open-sans-extrabold': require('../../../assets/fonts/OpenSans-ExtraBold.ttf'),
-      'rubik-light': require('../../../assets/fonts/Rubik-Light.ttf'),
-      'rubik-medium': require('../../../assets/fonts/Rubik-Medium.ttf'),
-      'rubik-regular': require('../../../assets/fonts/Rubik-Regular.ttf'),
-    });
-
-    this.setState({ fontLoaded: true });
+  componentWillMount() {
+    console.log('componentWillMount');
+    this.handleOpen(this.props);
   }
+  componentWillReceiveProps(props) {
+    if (this.props.showFilterModal !== props.showFilterModal) {
+      this.handleOpen(props);
+    }
+  }
+
+  animateOpen() {
+    Animated.parallel([
+      Animated.timing(this.state.backdropOpacity, {
+        toValue: fadeOpacity,
+        duration: fadeDuration,
+        useNativeDriver: true
+      }),
+      Animated.timing(this.state.modalPosition, {
+        toValue: 0,
+        duration: 500,
+        easing: Easing.out(Easing.cubic),
+        useNativeDriver: true
+      }),
+      Animated.timing(this.state.sectionOpacity, {
+        toValue: 1,
+        duration: 700,
+        easing: Easing.out(Easing.sin),
+        useNativeDriver: true
+      }),
+      Animated.timing(this.state.sectionPosition, {
+        toValue: 0,
+        duration: 650,
+        delay: 50,
+        easing: Easing.out(Easing.sin),
+        useNativeDriver: true
+      })
+    ]).start();
+  }
+  animateClose() {
+    Animated.parallel([
+      Animated.timing(this.state.backdropOpacity, {
+        toValue: 0,
+        duration: fadeDuration,
+        useNativeDriver: true
+      }),
+      Animated.timing(this.state.modalPosition, {
+        toValue: -375,
+        easing: Easing.poly(2),
+        duration: 200,
+        useNativeDriver: true
+      }),
+      Animated.timing(this.state.sectionOpacity, {
+        toValue: 0,
+        duration: 700,
+        easing: Easing.out(Easing.sin),
+        useNativeDriver: true
+      }),
+      Animated.timing(this.state.sectionPosition, {
+        toValue: -sectionOffset,
+        duration: 650,
+        delay: 50,
+        easing: Easing.out(Easing.sin),
+        useNativeDriver: true
+      })
+    ]).start();
+  }
+
+  handleOpen(props) {
+    const { showFilterModal } = props;
+    if (typeof showFilterModal === 'undefined') return null;
+    return showFilterModal ? this.animateOpen() : this.animateClose();
+  }
+
+  handleClose() {
+    Animated.parallel([
+      Animated.timing(this.state.backdropOpacity, {
+        toValue: 0,
+        duration: 310,
+        easing: Easing.out(Easing.sin),
+        useNativeDriver: true
+      }),
+      Animated.timing(this.state.modalPosition, {
+        toValue: -375,
+        easing: Easing.inOut(Easing.back(1.25)),
+        duration: 400,
+        useNativeDriver: true
+      }),
+      Animated.timing(this.state.sectionOpacity, {
+        toValue: 0,
+        duration: 250,
+        easing: Easing.out(Easing.sin),
+        useNativeDriver: true
+      }),
+      Animated.timing(this.state.sectionPosition, {
+        toValue: -sectionOffset,
+        duration: 250,
+        easing: Easing.out(Easing.back(2.5)),
+        useNativeDriver: true
+      })
+    ]).start(() => this.props.toggle());
+  }
+
+  handleSubmit() {
+    Animated.parallel([
+      Animated.timing(this.state.backdropOpacity, {
+        toValue: 0,
+        duration: 310,
+        easing: Easing.out(Easing.sin),
+        useNativeDriver: true
+      }),
+      Animated.timing(this.state.modalPosition, {
+        toValue: -375,
+        easing: Easing.inOut(Easing.back(1.25)),
+        duration: 400,
+        useNativeDriver: true
+      }),
+      Animated.timing(this.state.sectionOpacity, {
+        toValue: 0,
+        duration: 250,
+        easing: Easing.out(Easing.sin),
+        useNativeDriver: true
+      }),
+      Animated.timing(this.state.sectionPosition, {
+        toValue: -sectionOffset,
+        duration: 250,
+        easing: Easing.out(Easing.back(2.5)),
+        useNativeDriver: true
+      })
+    ]).start(() => this.props.toggle());
+  }
+
   render() {
-    const { fontLoaded } = this.state;
-    if (this.props.showFilterModal) {
+    const { sectionPosition, sectionOpacity } = this.state;
+    const { showFilterModal } = this.props;
+    const backdropOpacity = { opacity: this.state.backdropOpacity };
+    const modalPosition = { position: 'absolute', top: 0, transform: [{ translateY: this.state.modalPosition }] };
+
+    if (showFilterModal) {
       return (
         <View style={styles.container}>
-          <View style={styles.modal}>
+          <TouchableWithoutFeedback onPress={this.handleClose} style={{ position: 'absolute' }}>
+            <Animated.View style={[styles.backdrop, backdropOpacity]} />
+          </TouchableWithoutFeedback>
+          <Animated.View style={[styles.modal, modalPosition]}>
             <ScrollView style={styles.scrollview}>
-              <FilterHeader />
-              <FilterSection name="Sort by">
+              <FilterHeader
+                handleClose={this.handleClose}
+              />
+              <FilterSection name="Sort by" sectionPosition={sectionPosition} sectionOpacity={sectionOpacity}>
                 <FilterOption name="Best Match" iconType="simplelineicons" iconName="like" iconSize={20} />
                 <FilterOption name="Distance" iconType="simplelineicons" iconName="compass" iconSize={20} />
                 <FilterOption name="Rating" iconType="simplelineicons" iconName="badge" iconSize={20} />
                 <FilterOption name="Most Reviewed" iconType="simplelineicons" iconName="fire" iconSize={20} />
               </FilterSection>
-              <FilterSection name="Planning for">
+              <FilterSection name="Planning for" sectionPosition={sectionPosition} sectionOpacity={sectionOpacity}>
                 <FilterOption name="Delivery" iconName="ios-car-outline" />
                 <FilterOption name="Pickup" iconName="ios-cart-outline" iconSize={26} />
                 <FilterOption name="Reservations" iconName="ios-calendar-outline" />
               </FilterSection>
-              <FilterSection name="Preferences">
+              <FilterSection name="Preferences" sectionPosition={sectionPosition} sectionOpacity={sectionOpacity}>
                 <FilterOption name="Accepts Credit Cards" iconName="ios-card-outline" />
                 <FilterOption name="Free Wifi" iconName="ios-wifi-outline" />
                 <FilterOption name="Live Music" iconName="ios-musical-notes-outline" />
@@ -95,21 +219,17 @@ class FilterModal extends Component {
               </FilterSection>
             </ScrollView>
 
-            <View style={styles.submitButton}>
-              <TouchableOpacity style={{ flex: 1, justifyContent: 'center' }} onPress={() => this.props.toggleStatusBar()}>
-                {fontLoaded ? <Text style={styles.submitText}>DONE</Text> : null}
-              </TouchableOpacity>
-            </View>
-          </View>
+            <FilterSubmit onSubmit={this.handleSubmit} />
+          </Animated.View>
 
         </View>
       );
-    } return null;
+    } return <View />;
   }
 }
 
 const mapStateToProps = state => ({
-  showFilterModal: state.nav
+  showFilterModal: state.nav.showFilterModal
 });
 
-export default connect(mapStateToProps, { toggleFilterModal, toggleStatusBar })(FilterModal);
+export default connect(mapStateToProps)(FilterModal);
