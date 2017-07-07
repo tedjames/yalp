@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View, Animated, Text, StatusBar, TouchableOpacity } from 'react-native';
-import { Ionicons, Entypo } from '@expo/vector-icons';
+import { View, Animated, Text, TouchableOpacity } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 
 class SearchModal extends Component {
   constructor(props) {
@@ -60,13 +60,12 @@ class SearchModal extends Component {
       const headerOpacity = { opacity: this.state.headerOpacity };
       return (
         <View style={styles.container}>
-          <StatusBar hidden animated />
           <Animated.View style={[styles.header, headerOpacity]}>
             <View style={styles.icons}>
               <TouchableOpacity style={styles.backButton}>
-                <Ionicons name="ios-arrow-round-back" size={40} color="#222" />
+                <Ionicons name="ios-arrow-round-back" size={37} color="#111" />
               </TouchableOpacity>
-              <Entypo name="dot-single" size={25} color="#333" />
+              <View style={styles.circleIcon} />
               <View style={styles.line} />
               <View style={styles.squareIcon} />
             </View>
@@ -99,7 +98,6 @@ const styles = {
   header: {
     height: 135,
     flexDirection: 'row',
-    justifyContent: 'space-between',
     backgroundColor: '#FFF',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 3 },
@@ -108,16 +106,36 @@ const styles = {
     elevation: 1,
   },
   icons: {
-    alignItems: 'center'
+    alignItems: 'center',
+    marginLeft: 2.5
   },
-  feed: {
-    flex: 4.20,
+  backButton: {
+    paddingRight: 20,
+    paddingLeft: 22.5,
+    paddingTop: 20
+  },
+  circleIcon: {
+    height: 6,
+    width: 6,
+    borderRadius: 50,
+    backgroundColor: '#43A0C4',
+    marginTop: 5
+  },
+  line: {
+    backgroundColor: '#bbb',
+    height: 30,
+    width: 1,
+    marginTop: 4,
+    marginBottom: 4
   },
   squareIcon: {
     height: 6,
     width: 6,
     backgroundColor: '#333'
-  }
+  },
+  feed: {
+    flex: 4.20,
+  },
 };
 
 const mapStateToProps = state => ({
