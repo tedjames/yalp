@@ -1,20 +1,20 @@
 import {
-  TOGGLE_FILTER_MODAL,
-  TOGGLE_STATUS_BAR
+  TOGGLE_FILTER,
+  TOGGLE_SEARCH
 } from '../Actions/types';
 
 const INITIAL_STATE = {
   showFilterModal: false,
-  showStatusBar: true
+  showSearchModal: false
 };
 
 export default (state = INITIAL_STATE, action) => {
   console.log('ACTION FIRED: ', action);
   switch (action.type) {
-    case TOGGLE_FILTER_MODAL:
+    case TOGGLE_FILTER:
       return { ...state, showFilterModal: !state.showFilterModal };
-    case TOGGLE_STATUS_BAR:
-      return { ...state, showStatusBar: !state.showStatusBar };
+    case TOGGLE_SEARCH:
+      return { ...state, showSearchModal: !state.showSearchModal };
     default:
       return state;
   }

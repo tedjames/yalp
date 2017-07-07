@@ -1,9 +1,9 @@
-import { TOGGLE_FILTER_MODAL, TOGGLE_STATUS_BAR } from './types';
+import { TOGGLE_FILTER, TOGGLE_SEARCH } from './types';
 
-export const toggleFilterModal = () => ({
-  type: TOGGLE_FILTER_MODAL
+export const toggleFilter = () => ({
+  type: TOGGLE_FILTER
 });
 
-export const toggleStatusBar = () => ({
-  type: TOGGLE_STATUS_BAR
+export const toggleSearch = () => ({
+  type: TOGGLE_SEARCH
 });
