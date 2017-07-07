@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { View, Animated, Text, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import Field from './field';
 
 class SearchModal extends Component {
   constructor(props) {
@@ -9,15 +10,20 @@ class SearchModal extends Component {
     this.animateOpen = this.animateOpen.bind(this);
     this.animateClose = this.animateClose.bind(this);
     this.handleOpen = this.handleOpen.bind(this);
+    this.handleClose = this.handleClose.bind(this);
 
     this.state = {
       fontLoaded: false,
-      headerOpacity: new Animated.Value(0)
+      headerOpacity: new Animated.Value(0),
+      locationField: 'Current Location',
+      searchField: ''
     };
   }
+
   componentWillMount() {
     this.handleOpen(this.props);
   }
+
   componentWillReceiveProps(props) {
     if (this.props.showSearchModal !== props.showSearchModal) {
       this.handleOpen(props);
@@ -35,7 +41,6 @@ class SearchModal extends Component {
   }
 
   animateOpen() {
-    console.log('animateOpen');
     Animated.timing(this.state.headerOpacity, {
       toValue: 1,
       duration: 1000,
@@ -44,12 +49,19 @@ class SearchModal extends Component {
   }
 
   animateClose() {
-    console.log('animateClose');
     Animated.timing(this.state.headerOpacity, {
       toValue: 0,
       duration: 1000,
       useNativeDriver: true
     }).start();
+  }
+
+  handleClose() {
+    Animated.timing(this.state.headerOpacity, {
+      toValue: 0,
+      duration: 1000,
+      useNativeDriver: true
+    }).start(() => this.props.toggle());
   }
 
   render() {
@@ -62,19 +74,31 @@ class SearchModal extends Component {
         <View style={styles.container}>
           <Animated.View style={[styles.header, headerOpacity]}>
             <View style={styles.icons}>
-              <TouchableOpacity style={styles.backButton}>
+              <TouchableOpacity onPress={this.handleClose} style={styles.backButton}>
                 <Ionicons name="ios-arrow-round-back" size={37} color="#111" />
               </TouchableOpacity>
               <View style={styles.circleIcon} />
               <View style={styles.line} />
               <View style={styles.squareIcon} />
             </View>
-            <View style={styles.fields}>
-              <View style={styles.field}>
-                <Text style={styles.location}>Current Location</Text>
+            <View style={{ flex: 1, marginTop: 40 }}>
+              <View style={styles.fieldContainer}>
+                <Field
+                  style={[styles.field, { color: '#32b2e3' }]}
+                  onChangeText={text => this.setState({ locationField: text })}
+                  value={this.state.locationField}
+                  selectionColor="#32b2e3"
+                />
               </View>
-              <View style={styles.field}>
-                <Text style={styles.searchTerm}>What to eat?</Text>
+              <View style={styles.fieldContainer}>
+                <Field
+                  style={styles.field}
+                  onChangeText={text => this.setState({ searchField: text })}
+                  value={this.state.searchField}
+                  placeholder="What to eat?"
+                  placeholderTextColor="#A3A4AC"
+                  selectionColor="#32b2e3"
+                />
               </View>
             </View>
           </Animated.View>
@@ -132,6 +156,21 @@ const styles = {
     height: 6,
     width: 6,
     backgroundColor: '#333'
+  },
+  fieldContainer: {
+    backgroundColor: '#f7f7f7',
+    height: 33,
+    borderRadius: 3,
+    justifyContent: 'center',
+    marginTop: 10,
+    borderWidth: 0.5,
+    borderColor: '#f6f6f6',
+    paddingLeft: 7.5,
+    marginRight: 20
+  },
+  field: {
+    height: 32.5,
+    fontSize: 14
   },
   feed: {
     flex: 4.20,
