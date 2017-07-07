@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import { View, StatusBar } from 'react-native';
 import { connect } from 'react-redux';
 import { toggleFilter, toggleSearch } from '../../Actions';
-import SearchBar from './searchBar';
 import ShortcutBar from './shortcutBar';
 import Maps from '../maps';
 import FilterModal from '../filter';
+import SearchModal from '../search/searchModal';
+import SearchBar from '../search/searchBar';
 
 class Home extends Component {
   render() {
@@ -14,6 +15,7 @@ class Home extends Component {
       <View style={{ flex: 1 }}>
         <StatusBar hidden={false} animated />
         <FilterModal toggle={toggleFilter} />
+        <SearchModal toggle={toggleSearch} />
         <Maps />
         <SearchBar onFilterPress={toggleFilter} onSearchPress={toggleSearch} />
         <ShortcutBar />

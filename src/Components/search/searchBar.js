@@ -60,10 +60,10 @@ export default class SearchBar extends Component {
     this.setState({ fontLoaded: true });
   }
   render() {
-    const { onFilterPress } = this.props;
+    const { onFilterPress, onSearchPress } = this.props;
     return (
       <View style={styles.container}>
-        <TouchableOpacity activeOpacity={0.6} style={{ flex: 4, flexDirection: 'row', alignItems: 'center', height: '100%' }}>
+        <TouchableOpacity activeOpacity={0.6} onPress={onSearchPress} style={{ flex: 4, flexDirection: 'row', alignItems: 'center', height: '100%' }}>
           <View style={styles.squareIcon} />
           {this.state.fontLoaded ? <Text style={styles.searchText}>What to eat?</Text> : null}
         </TouchableOpacity>
