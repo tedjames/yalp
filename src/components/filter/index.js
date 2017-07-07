@@ -51,7 +51,6 @@ class FilterModal extends Component {
     };
   }
   componentWillMount() {
-    console.log('componentWillMount');
     this.handleOpen(this.props);
   }
   componentWillReceiveProps(props) {
