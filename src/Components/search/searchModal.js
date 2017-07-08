@@ -15,7 +15,7 @@ class SearchModal extends Component {
     this.state = {
       fontLoaded: false,
       headerOpacity: new Animated.Value(0),
-      locationField: 'Current Location',
+      locationField: '',
       searchField: ''
     };
   }
@@ -82,24 +82,20 @@ class SearchModal extends Component {
               <View style={styles.squareIcon} />
             </View>
             <View style={{ flex: 1, marginTop: 40 }}>
-              <View style={styles.fieldContainer}>
-                <Field
-                  style={[styles.field, { color: '#32b2e3' }]}
-                  onChangeText={text => this.setState({ locationField: text })}
-                  value={this.state.locationField}
-                  selectionColor="#32b2e3"
-                />
-              </View>
-              <View style={styles.fieldContainer}>
-                <Field
-                  style={styles.field}
-                  onChangeText={text => this.setState({ searchField: text })}
-                  value={this.state.searchField}
-                  placeholder="What to eat?"
-                  placeholderTextColor="#A3A4AC"
-                  selectionColor="#32b2e3"
-                />
-              </View>
+              <Field
+                onChangeText={text => this.setState({ locationField: text })}
+                value={this.state.locationField}
+                placeholder="Current Location"
+                placeholderTextColor="#29aadb"
+                selectionColor="#32b2e3"
+              />
+              <Field
+                onChangeText={text => this.setState({ searchField: text })}
+                value={this.state.searchField}
+                placeholder="What to eat?"
+                placeholderTextColor="#7b7c82"
+                selectionColor="#32b2e3"
+              />
             </View>
           </Animated.View>
           <Animated.ScrollView style={[styles.feed, headerOpacity]}>
@@ -135,7 +131,7 @@ const styles = {
   },
   backButton: {
     paddingRight: 20,
-    paddingLeft: 22.5,
+    paddingLeft: 20,
     paddingTop: 20
   },
   circleIcon: {
@@ -143,7 +139,7 @@ const styles = {
     width: 6,
     borderRadius: 50,
     backgroundColor: '#43A0C4',
-    marginTop: 5
+    marginTop: 3
   },
   line: {
     backgroundColor: '#bbb',
@@ -156,21 +152,6 @@ const styles = {
     height: 6,
     width: 6,
     backgroundColor: '#333'
-  },
-  fieldContainer: {
-    backgroundColor: '#f7f7f7',
-    height: 33,
-    borderRadius: 3,
-    justifyContent: 'center',
-    marginTop: 10,
-    borderWidth: 0.5,
-    borderColor: '#f6f6f6',
-    paddingLeft: 7.5,
-    marginRight: 20
-  },
-  field: {
-    height: 32.5,
-    fontSize: 14
   },
   feed: {
     flex: 4.20,
