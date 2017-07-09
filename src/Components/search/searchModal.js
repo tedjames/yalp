@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { View, Animated, Text, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { Font } from 'expo';
 import Field from './field';
+import CategoryButton from './categoryButton';
 
 class SearchModal extends Component {
   constructor(props) {
@@ -22,6 +24,15 @@ class SearchModal extends Component {
 
   componentWillMount() {
     this.handleOpen(this.props);
+  }
+
+  async componentDidMount() {
+    await Font.loadAsync({
+      'open-sans': require('../../../assets/fonts/OpenSans-Regular.ttf'),
+      'rubik': require('../../../assets/fonts/Rubik-Regular.ttf'),
+    });
+
+    this.setState({ fontLoaded: true });
   }
 
   componentWillReceiveProps(props) {
@@ -70,6 +81,7 @@ class SearchModal extends Component {
     if (showSearchModal) {
       console.log('showing search modal!');
       const headerOpacity = { opacity: this.state.headerOpacity };
+      const { fontLoaded } = this.state;
       return (
         <View style={styles.container}>
           <Animated.View style={[styles.header, headerOpacity]}>
@@ -101,7 +113,25 @@ class SearchModal extends Component {
           </Animated.View>
 
           <Animated.View style={[styles.feed, headerOpacity]}>
-            <Text>Feed!</Text>
+            <Animated.ScrollView>
+              {fontLoaded ? <Text style={styles.feedSection}>Top Categories</Text> : null}
+              <View style={styles.row}>
+                <CategoryButton />
+                <CategoryButton />
+              </View>
+              <View style={styles.row}>
+                <CategoryButton />
+                <CategoryButton />
+              </View>
+              <View style={styles.row}>
+                <CategoryButton />
+                <CategoryButton />
+              </View>
+              <View style={styles.row}>
+                <CategoryButton />
+                <CategoryButton />
+              </View>
+            </Animated.ScrollView>
           </Animated.View>
         </View>
       );
@@ -162,6 +192,21 @@ const styles = {
     backgroundColor: 'white',
     zIndex: 1
   },
+  feedSection: {
+    fontSize: 15,
+    color: '#555',
+    fontFamily: 'open-sans',
+    marginLeft: 15,
+    marginTop: 25,
+    marginBottom: 15
+  },
+  row: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    paddingLeft: 20,
+    paddingRight: 20
+  }
 };
 
 const mapStateToProps = state => ({
