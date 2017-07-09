@@ -121,9 +121,10 @@ const styles = {
     backgroundColor: '#FFF',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 3 },
-    shadowOpacity: 0.6,
-    shadowRadius: 15,
+    shadowOpacity: 0.125,
+    shadowRadius: 8,
     elevation: 1,
+    zIndex: 2
   },
   icons: {
     alignItems: 'center',
