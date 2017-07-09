@@ -9,12 +9,12 @@ const styles = {
     justifyContent: 'space-between',
     alignItems: 'center',
     backgroundColor: '#fff',
-    paddingLeft: 15,
+    paddingLeft: 10,
     paddingRight: 15,
     height: 52.5
   },
   optionIcon: {
-    marginRight: 15
+    marginRight: 5
   },
   optionName: {
     fontFamily: 'open-sans-regular',
@@ -26,7 +26,7 @@ const styles = {
     alignItems: 'center'
   },
   checkmark: {
-    marginRight: 11
+    marginRight: 12
   }
 };
 
@@ -100,7 +100,7 @@ export default class FilterOption extends Component {
             <View style={styles.iconContainer}>{this.renderIcon()}</View>
             {fontLoaded ? <Text style={styles.optionName}>{name}</Text> : null}
           </View>
-          {checked ? <Ionicons name="ios-checkmark-outline" style={styles.checkmark} size={40} color="#60BA62" /> : null}
+          {checked ? <Ionicons name="ios-checkmark-outline" style={styles.checkmark} size={41} color="#60BA62" /> : null}
         </View>
       </TouchableHighlight>
     );
