@@ -155,7 +155,10 @@ const styles = {
     backgroundColor: '#333'
   },
   feed: {
-    flex: 4.20,
+    height: '100%',
+    width: '100%',
+    backgroundColor: 'white',
+    zIndex: 1
   },
 };
 
