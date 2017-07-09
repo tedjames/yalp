@@ -81,6 +81,7 @@ class SearchModal extends Component {
               <View style={styles.line} />
               <View style={styles.squareIcon} />
             </View>
+
             <View style={{ flex: 1, marginTop: 40 }}>
               <Field
                 onChangeText={text => this.setState({ locationField: text })}
@@ -98,9 +99,10 @@ class SearchModal extends Component {
               />
             </View>
           </Animated.View>
-          <Animated.ScrollView style={[styles.feed, headerOpacity]}>
+
+          <Animated.View style={[styles.feed, headerOpacity]}>
             <Text>Feed!</Text>
-          </Animated.ScrollView>
+          </Animated.View>
         </View>
       );
     } return <View />;
