@@ -114,7 +114,7 @@ class SearchModal extends Component {
 
           { /* Feed View: conditionally renders locationHistory or categories */ }
           <Animated.View style={[styles.feed, headerOpacity]}>
-            <Animated.ScrollView>
+            <Animated.ScrollView style={{ height: '100%' }}>
               {fontLoaded ? <Text style={styles.feedSection}>Top Categories</Text> : null}
               <View style={styles.row}>
                 <CategoryButton label="American" imageName="american" />
@@ -188,10 +188,9 @@ const styles = {
     backgroundColor: '#333'
   },
   feed: {
-    height: '100%',
-    width: '100%',
     backgroundColor: 'white',
-    zIndex: 1
+    zIndex: 1,
+    flex: 1
   },
   feedSection: {
     fontSize: 15,
