@@ -112,24 +112,25 @@ class SearchModal extends Component {
             </View>
           </Animated.View>
 
+          { /* Feed View: conditionally renders locationHistory or categories */ }
           <Animated.View style={[styles.feed, headerOpacity]}>
             <Animated.ScrollView>
               {fontLoaded ? <Text style={styles.feedSection}>Top Categories</Text> : null}
               <View style={styles.row}>
-                <CategoryButton />
-                <CategoryButton />
+                <CategoryButton label="American" imageName="american" />
+                <CategoryButton label="Asian" imageName="asian" />
               </View>
               <View style={styles.row}>
-                <CategoryButton />
-                <CategoryButton />
+                <CategoryButton label="Barbeque" imageName="bbq" />
+                <CategoryButton label="Breakfast" imageName="breakfast" />
               </View>
               <View style={styles.row}>
-                <CategoryButton />
-                <CategoryButton />
+                <CategoryButton label="Coffee" imageName="coffee" />
+                <CategoryButton label="Dessert" imageName="dessert" />
               </View>
               <View style={styles.row}>
-                <CategoryButton />
-                <CategoryButton />
+                <CategoryButton label="Healthy" imageName="healthy" />
+                <CategoryButton label="Ice Cream" imageName="iceCream" />
               </View>
             </Animated.ScrollView>
           </Animated.View>
