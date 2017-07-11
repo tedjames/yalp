@@ -5,7 +5,7 @@ import { toggleFilter, toggleSearch } from '../../Actions';
 import ShortcutBar from './shortcutBar';
 import Maps from '../maps';
 import FilterModal from '../filter';
-import SearchModal from '../search/searchModal';
+import SearchModal from '../search';
 import SearchBar from '../search/searchBar';
 
 class Home extends Component {

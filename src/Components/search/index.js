@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { View, Animated, Text } from 'react-native';
 import { Font } from 'expo';
-import CategoryButton from './categoryButton';
+import Categories from './categories';
 import Header from './header';
 
 class SearchModal extends Component {
@@ -79,23 +79,7 @@ class SearchModal extends Component {
           { /* Feed View: conditionally renders locationHistory or categories */ }
           <Animated.View style={[styles.feed, headerOpacity]}>
             <Animated.ScrollView style={{ height: '100%' }}>
-              {fontLoaded ? <Text style={styles.feedSection}>Top Categories</Text> : null}
-              <View style={styles.row}>
-                <CategoryButton label="American" imageName="american" />
-                <CategoryButton label="Asian" imageName="asian" />
-              </View>
-              <View style={styles.row}>
-                <CategoryButton label="Barbeque" imageName="bbq" />
-                <CategoryButton label="Breakfast" imageName="breakfast" />
-              </View>
-              <View style={styles.row}>
-                <CategoryButton label="Coffee" imageName="coffee" />
-                <CategoryButton label="Dessert" imageName="dessert" />
-              </View>
-              <View style={styles.row}>
-                <CategoryButton label="Healthy" imageName="healthy" />
-                <CategoryButton label="Ice Cream" imageName="iceCream" />
-              </View>
+              <Categories />
             </Animated.ScrollView>
           </Animated.View>
         </View>
