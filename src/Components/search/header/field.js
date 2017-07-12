@@ -14,7 +14,7 @@ export default class Field extends Component {
 
   async componentDidMount() {
     await Font.loadAsync({
-      'open-sans': require('../../../assets/fonts/OpenSans-Regular.ttf'),
+      'open-sans': require('../../../../assets/fonts/OpenSans-Regular.ttf'),
     });
 
     this.setState({ fontLoaded: true });

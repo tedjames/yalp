@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View, Animated, Text } from 'react-native';
-import { Font } from 'expo';
+import { View, Animated } from 'react-native';
 import Categories from './categories';
 import Header from './header';
 
@@ -14,21 +13,12 @@ class SearchModal extends Component {
     this.handleClose = this.handleClose.bind(this);
 
     this.state = {
-      fontLoaded: false,
       headerOpacity: new Animated.Value(0),
     };
   }
 
   componentWillMount() {
     this.handleOpen(this.props);
-  }
-
-  async componentDidMount() {
-    await Font.loadAsync({
-      'open-sans': require('../../../assets/fonts/OpenSans-Regular.ttf'),
-    });
-
-    this.setState({ fontLoaded: true });
   }
 
   componentWillReceiveProps(props) {
@@ -70,17 +60,12 @@ class SearchModal extends Component {
     const { showSearchModal, toggle } = this.props;
 
     if (showSearchModal) {
-      console.log('showing search modal!');
       const headerOpacity = { opacity: this.state.headerOpacity };
-      const { fontLoaded } = this.state;
       return (
         <View style={styles.container}>
           <Header headerOpacity={headerOpacity} toggle={toggle} handleClose={this.handleClose} />
-          { /* Feed View: conditionally renders locationHistory or categories */ }
           <Animated.View style={[styles.feed, headerOpacity]}>
-            <Animated.ScrollView style={{ height: '100%' }}>
-              <Categories />
-            </Animated.ScrollView>
+            <Categories />
           </Animated.View>
         </View>
       );
@@ -101,21 +86,6 @@ const styles = {
     zIndex: 1,
     flex: 1
   },
-  feedSection: {
-    fontSize: 15,
-    color: '#555',
-    fontFamily: 'open-sans',
-    marginLeft: 15,
-    marginTop: 25,
-    marginBottom: 15
-  },
-  row: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    paddingLeft: 20,
-    paddingRight: 20
-  }
 };
 
 const mapStateToProps = state => ({

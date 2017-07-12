@@ -3,10 +3,10 @@ import { View, StatusBar } from 'react-native';
 import { connect } from 'react-redux';
 import { toggleFilter, toggleSearch } from '../../Actions';
 import ShortcutBar from './shortcutBar';
-import Maps from '../maps';
-import FilterModal from '../filter';
+import SearchBar from './searchBar';
 import SearchModal from '../search';
-import SearchBar from '../search/searchBar';
+import FilterModal from '../filter';
+import Maps from './maps';
 
 class Home extends Component {
   render() {

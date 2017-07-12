@@ -52,9 +52,9 @@ const styles = {
     flexDirection: 'row',
     backgroundColor: '#FFF',
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 3 },
+    shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.125,
-    shadowRadius: 8,
+    shadowRadius: 12,
     elevation: 1,
     zIndex: 2
   },
