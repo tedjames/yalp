@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { View, Animated, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { showLocationHistory, showCategories } from '../../../Actions';
 import Field from './field';
 
-export default class Header extends Component {
+class Header extends Component {
   constructor(props) {
     super(props);
 
@@ -28,6 +30,7 @@ export default class Header extends Component {
         <View style={{ flex: 1, marginTop: 40 }}>
           <Field
             onChangeText={text => this.setState({ locationField: text })}
+            onFocus={() => this.props.showLocationHistory()}
             value={this.state.locationField}
             placeholder="Current Location"
             placeholderTextColor="#29aadb"
@@ -35,6 +38,7 @@ export default class Header extends Component {
           />
           <Field
             onChangeText={text => this.setState({ searchField: text })}
+            onFocus={() => this.props.showCategories()}
             value={this.state.searchField}
             placeholder="What to eat?"
             placeholderTextColor="#7b7c82"
@@ -87,3 +91,5 @@ const styles = {
     backgroundColor: '#333'
   },
 };
+
+export default connect(null, { showLocationHistory, showCategories })(Header);

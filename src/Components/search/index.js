@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { View, Animated } from 'react-native';
 import Categories from './categories';
 import Header from './header';
+import LocationHistory from './locationHistory';
 
 class SearchModal extends Component {
   constructor(props) {
@@ -11,6 +12,7 @@ class SearchModal extends Component {
     this.animateClose = this.animateClose.bind(this);
     this.handleOpen = this.handleOpen.bind(this);
     this.handleClose = this.handleClose.bind(this);
+    this.renderFeed = this.renderFeed.bind(this);
 
     this.state = {
       headerOpacity: new Animated.Value(0),
@@ -56,6 +58,15 @@ class SearchModal extends Component {
     }).start();
   }
 
+  renderFeed() {
+    const feedOpacity = { opacity: this.state.headerOpacity };
+    return (
+      <Animated.View style={[styles.feed, feedOpacity]}>
+        {this.props.showLocationHistory ? <LocationHistory /> : <Categories />}
+      </Animated.View>
+    );
+  }
+
   render() {
     const { showSearchModal, toggle } = this.props;
 
@@ -64,9 +75,7 @@ class SearchModal extends Component {
       return (
         <View style={styles.container}>
           <Header headerOpacity={headerOpacity} toggle={toggle} handleClose={this.handleClose} />
-          <Animated.View style={[styles.feed, headerOpacity]}>
-            <Categories />
-          </Animated.View>
+          {this.renderFeed()}
         </View>
       );
     } return <View />;
@@ -89,7 +98,8 @@ const styles = {
 };
 
 const mapStateToProps = state => ({
-  showSearchModal: state.nav.showSearchModal
+  showSearchModal: state.nav.showSearchModal,
+  showLocationHistory: state.nav.showLocationHistory
 });
 
 export default connect(mapStateToProps)(SearchModal);

@@ -22,11 +22,12 @@ export default class Field extends Component {
 
   // Focus animation handlers
   animateFocus() {
+    const { onFocus } = this.props;
     Animated.timing(this.state.backgroundColor, {
       toValue: 1,
       duration: 350,
       easing: Easing.in(Easing.poly(1))
-    }).start();
+    }).start(() => onFocus() || null);
   }
   animateUnfocus() {
     Animated.timing(this.state.backgroundColor, {
