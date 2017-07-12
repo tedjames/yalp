@@ -17,7 +17,7 @@ class Home extends Component {
         <FilterModal toggle={toggleFilter} />
         <SearchModal toggle={toggleSearch} />
         <Maps />
-        <SearchBar onFilterPress={toggleFilter} onSearchPress={toggleSearch} />
+        <SearchBar />
         <ShortcutBar />
       </View>
     );
