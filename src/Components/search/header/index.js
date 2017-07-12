@@ -15,7 +15,7 @@ class Header extends Component {
     };
   }
   render() {
-    const { headerOpacity, handleClose } = this.props;
+    const { headerOpacity, handleClose, showLocationHistory, showCategories } = this.props;
     return (
       <Animated.View style={[styles.header, headerOpacity]}>
         <View style={styles.icons}>
@@ -30,7 +30,7 @@ class Header extends Component {
         <View style={{ flex: 1, marginTop: 40 }}>
           <Field
             onChangeText={text => this.setState({ locationField: text })}
-            onFocus={() => this.props.showLocationHistory()}
+            onFocus={() => showLocationHistory()}
             value={this.state.locationField}
             placeholder="Current Location"
             placeholderTextColor="#29aadb"
@@ -38,7 +38,7 @@ class Header extends Component {
           />
           <Field
             onChangeText={text => this.setState({ searchField: text })}
-            onFocus={() => this.props.showCategories()}
+            onFocus={() => showCategories()}
             value={this.state.searchField}
             placeholder="What to eat?"
             placeholderTextColor="#7b7c82"
