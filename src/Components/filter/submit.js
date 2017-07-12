@@ -26,7 +26,7 @@ const styles = {
   },
 };
 
-export default class FilterSubmit extends Component {
+export default class Submit extends Component {
   constructor(props) {
     super(props);
 

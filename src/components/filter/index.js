@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { View, ScrollView, Animated, Easing, TouchableWithoutFeedback, StatusBar } from 'react-native';
-import FilterSection from './filterSection';
-import FilterOption from './filterOption';
-import FilterHeader from './filterHeader';
-import FilterSubmit from './filterSubmit';
+import Section from './section';
+import Option from './option';
+import Header from './header';
+import Submit from './submit';
 
 const fadeDuration = 500;
 const fadeOpacity = 0.5;
@@ -196,35 +196,35 @@ class FilterModal extends Component {
           </TouchableWithoutFeedback>
           <Animated.View style={[styles.modal, modalPosition]}>
             <ScrollView style={styles.scrollview}>
-              <FilterHeader
+              <Header
                 handleClose={this.handleClose}
                 headerOpacity={sectionOpacity}
                 headerPosition={sectionPosition}
               />
-              <FilterSection name="Sort by" sectionPosition={sectionPosition} sectionOpacity={sectionOpacity}>
-                <FilterOption name="Best Match" iconType="simplelineicons" iconName="like" iconSize={20} />
-                <FilterOption name="Distance" iconType="simplelineicons" iconName="compass" iconSize={20} />
-                <FilterOption name="Rating" iconType="simplelineicons" iconName="badge" iconSize={20} />
-                <FilterOption name="Most Reviewed" iconType="simplelineicons" iconName="fire" iconSize={20} />
-              </FilterSection>
-              <FilterSection name="Planning for" sectionPosition={sectionPosition} sectionOpacity={sectionOpacity}>
-                <FilterOption name="Delivery" iconName="ios-car-outline" />
-                <FilterOption name="Pickup" iconName="ios-cart-outline" iconSize={26} />
-                <FilterOption name="Reservations" iconName="ios-calendar-outline" />
-              </FilterSection>
-              <FilterSection name="Preferences" sectionPosition={sectionPosition} sectionOpacity={sectionOpacity}>
-                <FilterOption name="Accepts Credit Cards" iconName="ios-card-outline" />
-                <FilterOption name="Free Wifi" iconName="ios-wifi-outline" />
-                <FilterOption name="Live Music" iconName="ios-musical-notes-outline" />
-                <FilterOption name="Happy Hour" iconName="ios-wine-outline" />
-                <FilterOption name="Vegetarian Friendly" iconName="ios-nutrition-outline" />
-                <FilterOption name="Wheelchair Accessible" iconType="fontawesome" iconName="wheelchair" iconSize={20} />
-                <FilterOption name="Dogs Allowed" iconName="ios-paw-outline" />
-                <FilterOption name="Military Discount" iconName="ios-jet-outline" />
-              </FilterSection>
+              <Section name="Sort by" sectionPosition={sectionPosition} sectionOpacity={sectionOpacity}>
+                <Option name="Best Match" iconType="simplelineicons" iconName="like" iconSize={20} />
+                <Option name="Distance" iconType="simplelineicons" iconName="compass" iconSize={20} />
+                <Option name="Rating" iconType="simplelineicons" iconName="badge" iconSize={20} />
+                <Option name="Most Reviewed" iconType="simplelineicons" iconName="fire" iconSize={20} />
+              </Section>
+              <Section name="Planning for" sectionPosition={sectionPosition} sectionOpacity={sectionOpacity}>
+                <Option name="Delivery" iconName="ios-car-outline" />
+                <Option name="Pickup" iconName="ios-cart-outline" iconSize={26} />
+                <Option name="Reservations" iconName="ios-calendar-outline" />
+              </Section>
+              <Section name="Preferences" sectionPosition={sectionPosition} sectionOpacity={sectionOpacity}>
+                <Option name="Accepts Credit Cards" iconName="ios-card-outline" />
+                <Option name="Free Wifi" iconName="ios-wifi-outline" />
+                <Option name="Live Music" iconName="ios-musical-notes-outline" />
+                <Option name="Happy Hour" iconName="ios-wine-outline" />
+                <Option name="Vegetarian Friendly" iconName="ios-nutrition-outline" />
+                <Option name="Wheelchair Accessible" iconType="fontawesome" iconName="wheelchair" iconSize={20} />
+                <Option name="Dogs Allowed" iconName="ios-paw-outline" />
+                <Option name="Military Discount" iconName="ios-jet-outline" />
+              </Section>
             </ScrollView>
 
-            <FilterSubmit onSubmit={this.handleSubmit} />
+            <Submit onSubmit={this.handleSubmit} />
           </Animated.View>
 
         </View>

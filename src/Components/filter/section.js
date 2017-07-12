@@ -14,7 +14,7 @@ const styles = {
   },
 };
 
-export default class FilterSection extends Component {
+export default class Section extends Component {
   constructor(props) {
     super(props);
 

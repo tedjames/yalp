@@ -30,7 +30,7 @@ const styles = {
   }
 };
 
-export default class FilterOption extends Component {
+export default class Option extends Component {
   constructor(props) {
     super(props);
     this.renderIcon = this.renderIcon.bind(this);

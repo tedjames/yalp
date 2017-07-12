@@ -27,7 +27,7 @@ const styles = {
   }
 };
 
-export default class filterHeader extends Component {
+export default class Header extends Component {
   constructor(props) {
     super(props);
 
