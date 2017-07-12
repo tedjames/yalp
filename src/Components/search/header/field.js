@@ -62,6 +62,7 @@ export default class Field extends Component {
             selectionColor={selectionColor}
             onFocus={() => this.animateFocus()}
             onEndEditing={() => this.animateUnfocus()}
+            clearButtonMode="while-editing"
           />
         </Animated.View>
       );
