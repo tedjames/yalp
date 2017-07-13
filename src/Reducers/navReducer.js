@@ -5,7 +5,7 @@ import {
 
 const INITIAL_STATE = {
   showFilterModal: false,
-  showSearchModal: true,
+  showSearchModal: false,
 };
 
 export default (state = INITIAL_STATE, action) => {
