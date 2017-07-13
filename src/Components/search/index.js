@@ -114,8 +114,8 @@ class SearchModal extends Component {
     } = this.state;
     return (
       <Animated.View style={[styles.feed, feedOpacity]}>
-        <LocationHistory visible={locationHistoryVisible} opacity={locationHistoryOpacity} />
-        <Categories visible={categoriesVisible} opacity={categoriesOpacity} />
+        {locationHistoryVisible ? <LocationHistory opacity={locationHistoryOpacity} /> : null}
+        {categoriesVisible ? <Categories opacity={categoriesOpacity} /> : null}
       </Animated.View>
     );
   }
