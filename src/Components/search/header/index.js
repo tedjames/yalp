@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import { View, Animated, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { showLocationHistory, showCategories } from '../../../Actions';
 import Field from './field';
 
-class Header extends Component {
+export default class Header extends Component {
   constructor(props) {
     super(props);
 
@@ -91,5 +89,3 @@ const styles = {
     backgroundColor: '#333'
   },
 };
-
-export default connect(null, { showLocationHistory, showCategories })(Header);
