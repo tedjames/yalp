@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { View, ScrollView, Animated, Easing, TouchableWithoutFeedback, StatusBar } from 'react-native';
+import { toggleFilter } from '../../Actions';
 import Section from './section';
 import Option from './option';
 import Header from './header';
@@ -148,7 +149,7 @@ class FilterModal extends Component {
         easing: Easing.out(Easing.back(2.5)),
         useNativeDriver: true
       })
-    ]).start(() => this.props.toggle());
+    ]).start(() => this.props.toggleFilter());
   }
 
   handleSubmit() {
@@ -177,7 +178,7 @@ class FilterModal extends Component {
         easing: Easing.out(Easing.back(2.5)),
         useNativeDriver: true
       })
-    ]).start(() => this.props.toggle());
+    ]).start(() => this.props.toggleFilter());
   }
 
   render() {
@@ -237,4 +238,4 @@ const mapStateToProps = state => ({
   showFilterModal: state.nav.showFilterModal
 });
 
-export default connect(mapStateToProps)(FilterModal);
+export default connect(mapStateToProps, { toggleFilter })(FilterModal);
