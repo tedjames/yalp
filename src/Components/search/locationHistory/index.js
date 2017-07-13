@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Animated } from 'react-native';
+import { Animated } from 'react-native';
 import Option from './option';
 
 export default class LocationHistory extends Component {
