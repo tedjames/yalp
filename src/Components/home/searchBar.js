@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { Font } from 'expo';
 import { Octicons } from '@expo/vector-icons';
-import { showCategories, toggleFilter, toggleSearch } from '../../Actions';
+import { toggleFilter, toggleSearch } from '../../Actions';
 
 const styles = {
   container: {
@@ -49,7 +49,6 @@ const styles = {
 class SearchBar extends Component {
   constructor(props) {
     super(props);
-    this.handleSearchPress = this.handleSearchPress.bind(this);
 
     this.state = {
       fontLoaded: false,
@@ -62,23 +61,26 @@ class SearchBar extends Component {
 
     this.setState({ fontLoaded: true });
   }
-  handleSearchPress() {
-    const { showCategories, toggleSearch } = this.props;
-    showCategories();
-    return toggleSearch();
-  }
   render() {
+    const { toggleSearch, toggleFilter } = this.props;
     return (
       <View style={styles.container}>
-        <TouchableOpacity activeOpacity={0.6} onPress={this.handleSearchPress} style={{ flex: 4, flexDirection: 'row', alignItems: 'center', height: '100%' }}>
+        <TouchableOpacity
+          activeOpacity={0.6}
+          onPress={() => toggleSearch()}
+          style={{ flex: 4, flexDirection: 'row', alignItems: 'center', height: '100%' }}
+        >
           <View style={styles.squareIcon} />
           {this.state.fontLoaded ? <Text style={styles.searchText}>What to eat?</Text> : null}
         </TouchableOpacity>
 
-
         <View style={styles.divider} />
 
-        <TouchableOpacity activeOpacity={0.6} onPress={() => this.props.toggleFilter()} style={{ flex: 1, top: 1.5, alignItems: 'center', justifyContent: 'center', height: '100%' }}>
+        <TouchableOpacity
+          activeOpacity={0.6}
+          onPress={() => toggleFilter()}
+          style={{ flex: 1, top: 1.5, alignItems: 'center', justifyContent: 'center', height: '100%' }}
+        >
           <Octicons name="settings" size={22} color="#777" />
         </TouchableOpacity>
       </View>
@@ -86,4 +88,4 @@ class SearchBar extends Component {
   }
 }
 
-export default connect(null, { showCategories, toggleFilter, toggleSearch })(SearchBar);
+export default connect(null, { toggleFilter, toggleSearch })(SearchBar);
