@@ -51,6 +51,7 @@ class SearchModal extends Component {
     }).start(() => this.props.toggleSearch());
   }
   animateOpen() {
+    this.setState({ categoriesVisible: true, locationHistoryVisible: false });
     Animated.parallel([
       Animated.timing(this.state.categoriesOpacity, {
         toValue: 1,
