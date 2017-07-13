@@ -48,7 +48,7 @@ export default class Shortcut extends Component {
   }
   async componentDidMount() {
     await Font.loadAsync({
-      'open-sans-regular': require('../../../assets/fonts/OpenSans-Regular.ttf'),
+      'open-sans-regular': require('../../../../assets/fonts/OpenSans-Regular.ttf'),
     });
 
     this.setState({ fontLoaded: true });

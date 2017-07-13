@@ -17,7 +17,7 @@ const styles = {
   }
 };
 
-export default class ShortcutBar extends Component {
+export default class Shortcuts extends Component {
   render() {
     return (
       <LinearGradient style={styles.gradientBar} colors={['rgba(238, 238, 238, 0)', 'rgba(238, 238, 238, 0.85)']} locations={[0, 0.75]}>

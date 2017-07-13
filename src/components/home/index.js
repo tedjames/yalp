@@ -18,7 +18,7 @@ class Home extends Component {
         <SearchModal toggle={toggleSearch} />
         <Maps />
         <SearchBar />
-        <ShortcutBar />
+        <Shortcuts />
       </View>
     );
   }
