@@ -13,9 +13,15 @@ export default class Header extends Component {
     };
   }
   render() {
-    const { headerOpacity, handleClose, showLocationHistory, showCategories } = this.props;
+    const {
+      headerOpacity,
+      handleClose,
+      showLocationHistory,
+      showCategories,
+      headerPosition
+    } = this.props;
     return (
-      <Animated.View style={[styles.header, headerOpacity]}>
+      <Animated.View style={[styles.header, headerOpacity, headerPosition]}>
         <View style={styles.icons}>
           <TouchableOpacity onPress={handleClose} style={styles.backButton}>
             <Ionicons name="ios-arrow-round-back" size={37} color="#111" />

@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View, Animated } from 'react-native';
+import { View, Animated, Dimensions, Easing } from 'react-native';
 import { toggleSearch } from '../../Actions';
 import Categories from './categories';
 import Header from './header';
 import LocationHistory from './locationHistory';
+
+const { height } = Dimensions.get('window');
 
 class SearchModal extends Component {
   constructor(props) {
@@ -18,11 +20,15 @@ class SearchModal extends Component {
     this.showLocationHistory = this.showLocationHistory.bind(this);
 
     this.state = {
-      headerOpacity: new Animated.Value(0),
       locationHistoryVisible: false,
       locationHistoryOpacity: new Animated.Value(0),
+      locationHistoryPosition: new Animated.Value(0),
       categoriesVisible: true,
-      categoriesOpacity: new Animated.Value(0)
+      categoriesOpacity: new Animated.Value(0),
+      categoriesPosition: new Animated.Value(0),
+      feedPosition: new Animated.Value(height),
+      headerOpacity: new Animated.Value(0),
+      headerPosition: new Animated.Value(-135),
     };
   }
 
@@ -44,78 +50,172 @@ class SearchModal extends Component {
     return showSearchModal ? this.animateOpen() : this.animateClose();
   }
   handleClose() {
-    Animated.timing(this.state.headerOpacity, {
-      toValue: 0,
-      duration: 1000,
-      useNativeDriver: true
-    }).start(() => this.props.toggleSearch());
-  }
-  animateOpen() {
-    this.setState({ categoriesVisible: true, locationHistoryVisible: false });
     Animated.parallel([
       Animated.timing(this.state.categoriesOpacity, {
         toValue: 1,
-        duration: 1000,
+        duration: 50,
+        useNativeDriver: true
+      }),
+      Animated.timing(this.state.feedPosition, {
+        toValue: height,
+        duration: 750,
+        easing: Easing.out(Easing.cubic),
         useNativeDriver: true
       }),
       Animated.timing(this.state.headerOpacity, {
         toValue: 1,
-        duration: 1000,
+        duration: 50,
+        useNativeDriver: true
+      }),
+      Animated.timing(this.state.headerPosition, {
+        toValue: -135,
+        duration: 350,
+        easing: Easing.inOut(Easing.back(1.25)),
+        useNativeDriver: true
+      })
+    ]).start(() => this.props.toggleSearch());
+  }
+  animateOpen() {
+    Animated.parallel([
+      Animated.timing(this.state.feedPosition, {
+        toValue: 0,
+        duration: 650,
+        easing: Easing.out(Easing.poly(3)),
+        useNativeDriver: true
+      }),
+      Animated.timing(this.state.headerOpacity, {
+        toValue: 1,
+        duration: 50,
+        useNativeDriver: true
+      }),
+      Animated.timing(this.state.headerPosition, {
+        toValue: 0,
+        duration: 500,
+        easing: Easing.out(Easing.poly(3)),
+        useNativeDriver: true
+      }),
+      Animated.timing(this.state.categoriesOpacity, {
+        toValue: 1,
+        duration: 300,
+        easing: Easing.out(Easing.ease),
+        useNativeDriver: true
+      }),
+      Animated.timing(this.state.categoriesPosition, {
+        toValue: 0,
+        duration: 500,
+        easing: Easing.out(Easing.ease),
+        useNativeDriver: true
+      }),
+      Animated.timing(this.state.locationHistoryPosition, {
+        toValue: 0,
+        duration: 500,
+        easing: Easing.out(Easing.ease),
+        useNativeDriver: true
+      }),
+    ]).start();
+  }
+  animateClose() {
+    Animated.parallel([
+      Animated.timing(this.state.categoriesOpacity, {
+        toValue: 1,
+        duration: 50,
+        useNativeDriver: true
+      }),
+      Animated.timing(this.state.feedPosition, {
+        toValue: 0,
+        duration: 750,
+        easing: Easing.inOut(Easing.back(1.25)),
+        useNativeDriver: true
+      }),
+      Animated.timing(this.state.headerOpacity, {
+        toValue: 1,
+        duration: 50,
+        useNativeDriver: true
+      }),
+      Animated.timing(this.state.headerPosition, {
+        toValue: -height,
+        duration: 650,
+        easing: Easing.out(Easing.cubic),
         useNativeDriver: true
       })
     ]).start();
   }
-  animateClose() {
-    Animated.timing(this.state.headerOpacity, {
-      toValue: 0,
-      duration: 1000,
-      useNativeDriver: true
-    }).start();
-  }
 
   // Feed's children animations
   showCategories() {
-    Animated.timing(this.state.locationHistoryOpacity, {
-      toValue: 0,
-      duration: 1000,
-      useNativeDriver: true
-    }).start(() => {
-      this.setState({ categoriesVisible: true, locationHistoryVisible: false });
-      Animated.timing(this.state.categoriesOpacity, {
-        toValue: 1,
-        duration: 1000,
+    Animated.parallel([
+      Animated.timing(this.state.locationHistoryOpacity, {
+        toValue: 0,
+        duration: 300,
+        easing: Easing.out(Easing.ease),
         useNativeDriver: true
-      }).start();
+      }),
+      Animated.timing(this.state.locationHistoryPosition, {
+        toValue: height,
+        duration: 500,
+        easing: Easing.in(Easing.ease),
+        useNativeDriver: true
+      })
+    ]).start(() => {
+      this.setState({ categoriesVisible: true, locationHistoryVisible: false });
+      Animated.parallel([
+        Animated.timing(this.state.categoriesOpacity, {
+          toValue: 1,
+          duration: 500,
+          easing: Easing.out(Easing.ease),
+          useNativeDriver: true
+        }),
+      ]).start();
     });
   }
 
   showLocationHistory() {
-    Animated.timing(this.state.categoriesOpacity, {
-      toValue: 0,
-      duration: 1000,
-      useNativeDriver: true
-    }).start(() => {
-      this.setState({ categoriesVisible: false, locationHistoryVisible: true });
-      Animated.timing(this.state.locationHistoryOpacity, {
-        toValue: 1,
-        duration: 1000,
+    Animated.parallel([
+      Animated.timing(this.state.categoriesOpacity, {
+        toValue: 0,
+        duration: 300,
+        easing: Easing.out(Easing.ease),
         useNativeDriver: true
-      }).start();
+      }),
+      Animated.timing(this.state.categoriesPosition, {
+        toValue: height,
+        duration: 500,
+        easing: Easing.in(Easing.ease),
+        useNativeDriver: true
+      })
+    ]).start(() => {
+      this.setState({ categoriesVisible: false, locationHistoryVisible: true });
+      Animated.parallel([
+        Animated.timing(this.state.locationHistoryOpacity, {
+          toValue: 1,
+          duration: 550,
+          easing: Easing.out(Easing.ease),
+          useNativeDriver: true
+        }),
+        Animated.timing(this.state.locationHistoryPosition, {
+          toValue: 0,
+          duration: 1,
+          useNativeDriver: true
+        })
+      ]).start();
     });
   }
 
   renderFeed() {
     const feedOpacity = { opacity: this.state.headerOpacity };
+    const feedPosition = { transform: [{ translateY: this.state.feedPosition }] };
     const {
       locationHistoryVisible,
       locationHistoryOpacity,
+      locationHistoryPosition,
       categoriesVisible,
-      categoriesOpacity
+      categoriesOpacity,
+      categoriesPosition
     } = this.state;
     return (
-      <Animated.View style={[styles.feed, feedOpacity]}>
-        {locationHistoryVisible ? <LocationHistory opacity={locationHistoryOpacity} /> : null}
-        {categoriesVisible ? <Categories opacity={categoriesOpacity} /> : null}
+      <Animated.View style={[styles.feed, feedOpacity, feedPosition]}>
+        {locationHistoryVisible ? <LocationHistory opacity={locationHistoryOpacity} position={locationHistoryPosition} /> : null}
+        {categoriesVisible ? <Categories opacity={categoriesOpacity} position={categoriesPosition} /> : null}
       </Animated.View>
     );
   }
@@ -125,10 +225,12 @@ class SearchModal extends Component {
 
     if (showSearchModal) {
       const headerOpacity = { opacity: this.state.headerOpacity };
+      const headerPosition = { transform: [{ translateY: this.state.headerPosition }] };
       return (
         <View style={styles.container}>
           <Header
             headerOpacity={headerOpacity}
+            headerPosition={headerPosition}
             handleClose={this.handleClose}
             showCategories={this.showCategories}
             showLocationHistory={this.showLocationHistory}
@@ -151,7 +253,7 @@ const styles = {
   feed: {
     backgroundColor: 'white',
     zIndex: 1,
-    flex: 1
+    flex: 1,
   },
 };
 

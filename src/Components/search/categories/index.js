@@ -7,7 +7,7 @@ const styles = {
   feed: {
     backgroundColor: 'white',
     zIndex: 1,
-    flex: 1
+    flex: 1,
   },
   feedSection: {
     fontSize: 15,
@@ -44,8 +44,9 @@ export default class Categories extends Component {
   render() {
     const { fontLoaded } = this.state;
     const opacity = { opacity: this.props.opacity };
+    const position = { transform: [{ translateY: this.props.position }] };
     return (
-      <Animated.ScrollView style={[{ flex: 1 }, opacity]}>
+      <Animated.ScrollView style={[{ flex: 1 }, opacity, position]}>
         {fontLoaded ? <Text style={styles.feedSection}>Top Categories</Text> : null}
         <View style={styles.row}>
           <CategoryButton label="American" imageName="american" />
