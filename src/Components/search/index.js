@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { View, Animated } from 'react-native';
+import { toggleSearch } from '../../Actions';
 import Categories from './categories';
 import Header from './header';
 import LocationHistory from './locationHistory';
@@ -13,9 +14,15 @@ class SearchModal extends Component {
     this.handleOpen = this.handleOpen.bind(this);
     this.handleClose = this.handleClose.bind(this);
     this.renderFeed = this.renderFeed.bind(this);
+    this.showCategories = this.showCategories.bind(this);
+    this.showLocationHistory = this.showLocationHistory.bind(this);
 
     this.state = {
       headerOpacity: new Animated.Value(0),
+      locationHistoryVisible: false,
+      locationHistoryOpacity: new Animated.Value(0),
+      categoriesVisible: true,
+      categoriesOpacity: new Animated.Value(0)
     };
   }
 
@@ -28,13 +35,7 @@ class SearchModal extends Component {
       this.handleOpen(props);
     }
   }
-  handleClose() {
-    Animated.timing(this.state.headerOpacity, {
-      toValue: 0,
-      duration: 1000,
-      useNativeDriver: true
-    }).start(() => this.props.toggle());
-  }
+  // SearchModal animations
   handleOpen(props) {
     const { showSearchModal } = props;
     if (typeof showSearchModal === 'undefined') {
@@ -42,14 +43,27 @@ class SearchModal extends Component {
     }
     return showSearchModal ? this.animateOpen() : this.animateClose();
   }
-  animateOpen() {
+  handleClose() {
     Animated.timing(this.state.headerOpacity, {
-      toValue: 1,
+      toValue: 0,
       duration: 1000,
       useNativeDriver: true
-    }).start();
+    }).start(() => this.props.toggleSearch());
   }
-
+  animateOpen() {
+    Animated.parallel([
+      Animated.timing(this.state.categoriesOpacity, {
+        toValue: 1,
+        duration: 1000,
+        useNativeDriver: true
+      }),
+      Animated.timing(this.state.headerOpacity, {
+        toValue: 1,
+        duration: 1000,
+        useNativeDriver: true
+      })
+    ]).start();
+  }
   animateClose() {
     Animated.timing(this.state.headerOpacity, {
       toValue: 0,
@@ -58,23 +72,66 @@ class SearchModal extends Component {
     }).start();
   }
 
+  // Feed's children animations
+  showCategories() {
+    Animated.timing(this.state.locationHistoryOpacity, {
+      toValue: 0,
+      duration: 1000,
+      useNativeDriver: true
+    }).start(() => {
+      this.setState({ categoriesVisible: true, locationHistoryVisible: false });
+      Animated.timing(this.state.categoriesOpacity, {
+        toValue: 1,
+        duration: 1000,
+        useNativeDriver: true
+      }).start();
+    });
+  }
+
+  showLocationHistory() {
+    Animated.timing(this.state.categoriesOpacity, {
+      toValue: 0,
+      duration: 1000,
+      useNativeDriver: true
+    }).start(() => {
+      this.setState({ categoriesVisible: false, locationHistoryVisible: true });
+      Animated.timing(this.state.locationHistoryOpacity, {
+        toValue: 1,
+        duration: 1000,
+        useNativeDriver: true
+      }).start();
+    });
+  }
+
   renderFeed() {
     const feedOpacity = { opacity: this.state.headerOpacity };
+    const {
+      locationHistoryVisible,
+      locationHistoryOpacity,
+      categoriesVisible,
+      categoriesOpacity
+    } = this.state;
     return (
       <Animated.View style={[styles.feed, feedOpacity]}>
-        {this.props.showLocationHistory ? <LocationHistory /> : <Categories />}
+        <LocationHistory visible={locationHistoryVisible} opacity={locationHistoryOpacity} />
+        <Categories visible={categoriesVisible} opacity={categoriesOpacity} />
       </Animated.View>
     );
   }
 
   render() {
-    const { showSearchModal, toggle } = this.props;
+    const { showSearchModal } = this.props;
 
     if (showSearchModal) {
       const headerOpacity = { opacity: this.state.headerOpacity };
       return (
         <View style={styles.container}>
-          <Header headerOpacity={headerOpacity} toggle={toggle} handleClose={this.handleClose} />
+          <Header
+            headerOpacity={headerOpacity}
+            handleClose={this.handleClose}
+            showCategories={this.showCategories}
+            showLocationHistory={this.showLocationHistory}
+          />
           {this.renderFeed()}
         </View>
       );
@@ -98,8 +155,7 @@ const styles = {
 };
 
 const mapStateToProps = state => ({
-  showSearchModal: state.nav.showSearchModal,
-  showLocationHistory: state.nav.showLocationHistory
+  showSearchModal: state.nav.showSearchModal
 });
 
-export default connect(mapStateToProps)(SearchModal);
+export default connect(mapStateToProps, { toggleSearch })(SearchModal);
