@@ -31,11 +31,6 @@ class SearchModal extends Component {
       headerPosition: new Animated.Value(-135),
     };
   }
-
-  componentWillMount() {
-    this.handleOpen(this.props);
-  }
-
   componentWillReceiveProps(props) {
     if (this.props.showSearchModal !== props.showSearchModal) {
       this.handleOpen(props);
@@ -214,8 +209,14 @@ class SearchModal extends Component {
     } = this.state;
     return (
       <Animated.View style={[styles.feed, feedOpacity, feedPosition]}>
-        {locationHistoryVisible ? <LocationHistory opacity={locationHistoryOpacity} position={locationHistoryPosition} /> : null}
-        {categoriesVisible ? <Categories opacity={categoriesOpacity} position={categoriesPosition} /> : null}
+        {locationHistoryVisible ?
+          <LocationHistory opacity={locationHistoryOpacity} position={locationHistoryPosition} /> :
+          null
+        }
+        {categoriesVisible ?
+          <Categories opacity={categoriesOpacity} position={categoriesPosition} /> :
+          null
+        }
       </Animated.View>
     );
   }
