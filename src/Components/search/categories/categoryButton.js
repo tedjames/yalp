@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { TouchableOpacity, Image, View, Text } from 'react-native';
 import { Font } from 'expo';
+import { updateQuery } from '../../../Actions';
 
-export default class CategoryButton extends Component {
+class CategoryButton extends Component {
   constructor(props) {
     super(props);
     this.fetchImage = this.fetchImage.bind(this);
@@ -61,10 +63,17 @@ export default class CategoryButton extends Component {
     }
   }
   render() {
-    const { label } = this.props;
+    const { label, updateQuery, handleClose } = this.props;
     const { image } = this.state;
     return (
-      <TouchableOpacity activeOpacity={0.7} style={styles.imageContainer}>
+      <TouchableOpacity
+        activeOpacity={0.7}
+        style={styles.imageContainer}
+        onPress={() => {
+          updateQuery(label);
+          handleClose();
+        }}
+      >
         <Image style={styles.image} source={image}>
           <View style={styles.imageBackdrop}>
             {this.state.fontLoaded ? <Text style={styles.categoryName}>{label}</Text> : null}
@@ -105,3 +114,5 @@ const styles = {
     alignItems: 'center'
   }
 };
+
+export default connect(null, { updateQuery })(CategoryButton);

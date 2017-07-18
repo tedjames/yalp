@@ -49,37 +49,37 @@ export default class Categories extends Component {
       <Animated.ScrollView style={[{ flex: 1 }, opacity, position]}>
         {fontLoaded ? <Text style={styles.feedSection}>Top Categories</Text> : null}
         <View style={styles.row}>
-          <CategoryButton label="American" imageName="american" />
-          <CategoryButton label="Asian" imageName="asian" />
+          <CategoryButton handleClose={this.props.handleClose} label="American" imageName="american" />
+          <CategoryButton handleClose={this.props.handleClose} label="Asian" imageName="asian" />
         </View>
         <View style={styles.row}>
-          <CategoryButton label="Barbeque" imageName="bbq" />
-          <CategoryButton label="Breakfast" imageName="breakfast" />
+          <CategoryButton handleClose={this.props.handleClose} label="Barbeque" imageName="bbq" />
+          <CategoryButton handleClose={this.props.handleClose} label="Breakfast" imageName="breakfast" />
         </View>
         <View style={styles.row}>
-          <CategoryButton label="Coffee" imageName="coffee" />
-          <CategoryButton label="Dessert" imageName="dessert" />
+          <CategoryButton handleClose={this.props.handleClose} label="Coffee" imageName="coffee" />
+          <CategoryButton handleClose={this.props.handleClose} label="Dessert" imageName="dessert" />
         </View>
         <View style={styles.row}>
-          <CategoryButton label="Healthy" imageName="healthy" />
-          <CategoryButton label="Ice Cream" imageName="iceCream" />
+          <CategoryButton handleClose={this.props.handleClose} label="Healthy" imageName="healthy" />
+          <CategoryButton handleClose={this.props.handleClose} label="Ice Cream" imageName="iceCream" />
         </View>
         {fontLoaded ? <Text style={styles.feedSection}>More Categories</Text> : null}
         <View style={styles.row}>
-          <CategoryButton label="Indian" imageName="indian" />
-          <CategoryButton label="Mexican" imageName="mexican" />
+          <CategoryButton handleClose={this.props.handleClose} label="Indian" imageName="indian" />
+          <CategoryButton handleClose={this.props.handleClose} label="Mexican" imageName="mexican" />
         </View>
         <View style={styles.row}>
-          <CategoryButton label="Pizza" imageName="pizza" />
-          <CategoryButton label="Sandwich" imageName="sandwich" />
+          <CategoryButton handleClose={this.props.handleClose} label="Pizza" imageName="pizza" />
+          <CategoryButton handleClose={this.props.handleClose} label="Sandwich" imageName="sandwich" />
         </View>
         <View style={styles.row}>
-          <CategoryButton label="Seafood" imageName="seafood" />
-          <CategoryButton label="Smoothie" imageName="smoothie" />
+          <CategoryButton handleClose={this.props.handleClose} label="Seafood" imageName="seafood" />
+          <CategoryButton handleClose={this.props.handleClose} label="Smoothie" imageName="smoothie" />
         </View>
         <View style={styles.row}>
-          <CategoryButton label="Sushi" imageName="sushi" />
-          <CategoryButton label="Vegan" imageName="vegan" />
+          <CategoryButton handleClose={this.props.handleClose} label="Sushi" imageName="sushi" />
+          <CategoryButton handleClose={this.props.handleClose} label="Vegan" imageName="vegan" />
         </View>
       </Animated.ScrollView>
     );

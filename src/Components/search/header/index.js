@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { View, Animated, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { updateQuery } from '../../../Actions';
 import Field from './field';
 
-export default class Header extends Component {
+class Header extends Component {
   constructor(props) {
     super(props);
 
@@ -18,7 +20,9 @@ export default class Header extends Component {
       handleClose,
       showLocationHistory,
       showCategories,
-      headerPosition
+      headerPosition,
+      updateQuery,
+      searchQuery
     } = this.props;
     return (
       <Animated.View style={[styles.header, headerOpacity, headerPosition]}>
@@ -42,9 +46,9 @@ export default class Header extends Component {
             returnKeyType="done"
           />
           <Field
-            onChangeText={text => this.setState({ searchField: text })}
+            onChangeText={text => updateQuery(text)}
             onFocus={() => showCategories()}
-            value={this.state.searchField}
+            value={searchQuery}
             placeholder="What to eat?"
             placeholderTextColor="#7b7c82"
             selectionColor="#32b2e3"
@@ -97,3 +101,5 @@ const styles = {
     backgroundColor: '#333'
   },
 };
+
+export default connect(null, { updateQuery })(Header);

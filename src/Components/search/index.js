@@ -224,12 +224,17 @@ class SearchModal extends Component {
     return (
       <Animated.View style={[styles.feed, feedOpacity, feedPosition]}>
         {locationHistoryVisible ?
-          <LocationHistory opacity={locationHistoryOpacity} position={locationHistoryPosition} /> :
-          null
+          <LocationHistory
+            opacity={locationHistoryOpacity}
+            position={locationHistoryPosition}
+          /> : null
         }
         {categoriesVisible ?
-          <Categories opacity={categoriesOpacity} position={categoriesPosition} /> :
-          null
+          <Categories
+            handleClose={this.handleClose}
+            opacity={categoriesOpacity}
+            position={categoriesPosition}
+          /> : null
         }
       </Animated.View>
     );
@@ -237,7 +242,7 @@ class SearchModal extends Component {
 
   render() {
     console.log('SearchModal: render');
-    const { showSearchModal } = this.props;
+    const { showSearchModal, searchQuery } = this.props;
 
     if (showSearchModal) {
       const headerOpacity = { opacity: this.state.headerOpacity };
@@ -245,6 +250,7 @@ class SearchModal extends Component {
       return (
         <View style={styles.container}>
           <Header
+            searchQuery={searchQuery}
             headerOpacity={headerOpacity}
             headerPosition={headerPosition}
             handleClose={this.handleClose}
