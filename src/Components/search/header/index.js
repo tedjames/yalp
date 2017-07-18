@@ -53,6 +53,7 @@ class Header extends Component {
             placeholderTextColor="#7b7c82"
             selectionColor="#32b2e3"
             returnKeyType="search"
+            handleClose={handleClose}
           />
         </View>
       </Animated.View>
