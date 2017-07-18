@@ -32,12 +32,14 @@ class SearchModal extends Component {
     };
   }
   componentWillReceiveProps(props) {
+    console.log('SearchModal componentWillReceiveProps');
     if (this.props.showSearchModal !== props.showSearchModal) {
       this.handleOpen(props);
     }
   }
   // SearchModal animations
   handleOpen(props) {
+    console.log('SearchModal: handleOpen');
     const { showSearchModal } = props;
     if (typeof showSearchModal === 'undefined') {
       return null;
@@ -45,6 +47,7 @@ class SearchModal extends Component {
     return showSearchModal ? this.animateOpen() : this.animateClose();
   }
   handleClose() {
+    console.log('SearchModal: handleClose');
     Animated.parallel([
       Animated.timing(this.state.categoriesOpacity, {
         toValue: 1,
@@ -71,11 +74,13 @@ class SearchModal extends Component {
     ]).start(() => this.props.toggleSearch());
   }
   animateOpen() {
+    console.log('SearchModal: animateOpen');
+    this.setState({ categoriesVisible: true, locationHistoryVisible: false });
     Animated.parallel([
       Animated.timing(this.state.feedPosition, {
         toValue: 0,
         duration: 650,
-        easing: Easing.out(Easing.poly(3)),
+        easing: Easing.out(Easing.cubic),
         useNativeDriver: true
       }),
       Animated.timing(this.state.headerOpacity, {
@@ -110,6 +115,7 @@ class SearchModal extends Component {
     ]).start();
   }
   animateClose() {
+    console.log('SearchModal: animateClose');
     Animated.parallel([
       Animated.timing(this.state.categoriesOpacity, {
         toValue: 1,
@@ -117,7 +123,7 @@ class SearchModal extends Component {
         useNativeDriver: true
       }),
       Animated.timing(this.state.feedPosition, {
-        toValue: 0,
+        toValue: height,
         duration: 750,
         easing: Easing.inOut(Easing.back(1.25)),
         useNativeDriver: true
@@ -138,6 +144,7 @@ class SearchModal extends Component {
 
   // Feed's children animations
   showCategories() {
+    console.log('SearchModal: showCategories');
     Animated.parallel([
       Animated.timing(this.state.locationHistoryOpacity, {
         toValue: 0,
@@ -150,7 +157,7 @@ class SearchModal extends Component {
         duration: 500,
         easing: Easing.in(Easing.ease),
         useNativeDriver: true
-      })
+      }),
     ]).start(() => {
       this.setState({ categoriesVisible: true, locationHistoryVisible: false });
       Animated.parallel([
@@ -160,11 +167,17 @@ class SearchModal extends Component {
           easing: Easing.out(Easing.ease),
           useNativeDriver: true
         }),
+        Animated.timing(this.state.categoriesPosition, {
+          toValue: 0,
+          duration: 1,
+          useNativeDriver: true
+        })
       ]).start();
     });
   }
 
   showLocationHistory() {
+    console.log('SearchModal: showLocationHistory');
     Animated.parallel([
       Animated.timing(this.state.categoriesOpacity, {
         toValue: 0,
@@ -197,6 +210,7 @@ class SearchModal extends Component {
   }
 
   renderFeed() {
+    console.log('SearchModal: renderFeed');
     const feedOpacity = { opacity: this.state.headerOpacity };
     const feedPosition = { transform: [{ translateY: this.state.feedPosition }] };
     const {
@@ -222,6 +236,7 @@ class SearchModal extends Component {
   }
 
   render() {
+    console.log('SearchModal: render');
     const { showSearchModal } = this.props;
 
     if (showSearchModal) {
@@ -239,7 +254,7 @@ class SearchModal extends Component {
           {this.renderFeed()}
         </View>
       );
-    } return <View />;
+    } return null;
   }
 }
 
@@ -248,13 +263,14 @@ const styles = {
     position: 'absolute',
     width: '100%',
     height: '100%',
+    flex: 1,
     backgroundColor: 'transparent',
     zIndex: 5
   },
   feed: {
     backgroundColor: 'white',
     zIndex: 1,
-    flex: 1,
+    flex: 1
   },
 };
 
