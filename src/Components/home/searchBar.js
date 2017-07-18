@@ -62,7 +62,7 @@ class SearchBar extends Component {
     this.setState({ fontLoaded: true });
   }
   render() {
-    const { toggleSearch, toggleFilter } = this.props;
+    const { toggleSearch, toggleFilter, searchQuery } = this.props;
     return (
       <View style={styles.container}>
         <TouchableOpacity
@@ -71,7 +71,7 @@ class SearchBar extends Component {
           style={{ flex: 4, flexDirection: 'row', alignItems: 'center', height: '100%' }}
         >
           <View style={styles.squareIcon} />
-          {this.state.fontLoaded ? <Text style={styles.searchText}>What to eat?</Text> : null}
+          {this.state.fontLoaded ? <Text style={styles.searchText}>{searchQuery === '' ? 'What to eat?' : searchQuery}</Text> : null}
         </TouchableOpacity>
 
         <View style={styles.divider} />
