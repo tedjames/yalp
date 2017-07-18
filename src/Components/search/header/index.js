@@ -39,6 +39,7 @@ export default class Header extends Component {
             placeholder="Current Location"
             placeholderTextColor="#29aadb"
             selectionColor="#32b2e3"
+            returnKeyType="done"
           />
           <Field
             onChangeText={text => this.setState({ searchField: text })}
@@ -47,6 +48,7 @@ export default class Header extends Component {
             placeholder="What to eat?"
             placeholderTextColor="#7b7c82"
             selectionColor="#32b2e3"
+            returnKeyType="search"
           />
         </View>
       </Animated.View>

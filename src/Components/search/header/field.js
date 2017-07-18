@@ -43,7 +43,8 @@ export default class Field extends Component {
       value,
       placeholder,
       placeholderTextColor,
-      selectionColor
+      selectionColor,
+      returnKeyType
     } = this.props;
     const backgroundColor = this.state.backgroundColor.interpolate({
       inputRange: [0, 1],
@@ -63,6 +64,7 @@ export default class Field extends Component {
             onFocus={() => this.animateFocus()}
             onEndEditing={() => this.animateUnfocus()}
             clearButtonMode="while-editing"
+            returnKeyType={returnKeyType}
           />
         </Animated.View>
       );
