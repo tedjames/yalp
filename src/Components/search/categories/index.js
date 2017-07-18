@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Animated } from 'react-native';
+import { View, Text, Animated, Keyboard } from 'react-native';
 import { Font } from 'expo';
 import CategoryButton from './categoryButton';
 
@@ -46,7 +46,10 @@ export default class Categories extends Component {
     const opacity = { opacity: this.props.opacity };
     const position = { transform: [{ translateY: this.props.position }] };
     return (
-      <Animated.ScrollView style={[{ flex: 1 }, opacity, position]}>
+      <Animated.ScrollView
+        style={[{ flex: 1 }, opacity, position]}
+        onScroll={() => Keyboard.dismiss()}
+      >
         {fontLoaded ? <Text style={styles.feedSection}>Top Categories</Text> : null}
         <View style={styles.row}>
           <CategoryButton handleClose={this.props.handleClose} label="American" imageName="american" />
