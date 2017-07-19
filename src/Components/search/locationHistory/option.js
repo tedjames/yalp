@@ -5,10 +5,20 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { updateDestination } from '../../../Actions';
 
 class Option extends Component {
-  render() {
+  constructor(props) {
+    super(props);
+    this.handlePress = this.handlePress.bind(this);
+  }
+  handlePress() {
     const { label, updateDestination } = this.props;
+    if (label === 'Current Location') {
+      return updateDestination('');
+    } return updateDestination(label);
+  }
+  render() {
+    const { label } = this.props;
     return (
-      <TouchableHighlight activeOpacity={0.95} onPress={() => updateDestination(label)}>
+      <TouchableHighlight activeOpacity={0.95} onPress={this.handlePress}>
         <View style={styles.container}>
           <MaterialCommunityIcons
             style={styles.icon}
