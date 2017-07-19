@@ -80,4 +80,8 @@ class SearchBar extends Component {
   }
 }
 
-export default connect(null, { toggleFilter, toggleSearch })(SearchBar);
+const mapStateToProps = state => ({
+  searchQuery: state.forms.searchQuery
+});
+
+export default connect(mapStateToProps, { toggleFilter, toggleSearch })(SearchBar);

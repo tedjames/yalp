@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { View, Animated, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { updateQuery } from '../../../Actions';
+import { updateQuery, updateDestination } from '../../../Actions';
 import Field from './field';
 
 class Header extends Component {
@@ -22,7 +22,9 @@ class Header extends Component {
       showCategories,
       headerPosition,
       updateQuery,
-      searchQuery
+      searchQuery,
+      updateDestination,
+      destination
     } = this.props;
     return (
       <Animated.View style={[styles.header, headerOpacity, headerPosition]}>
@@ -37,13 +39,14 @@ class Header extends Component {
 
         <View style={{ flex: 1, marginTop: 40 }}>
           <Field
-            onChangeText={text => this.setState({ locationField: text })}
+            onChangeText={destination => updateDestination(destination)}
             onFocus={() => showLocationHistory()}
-            value={this.state.locationField}
+            value={destination}
             placeholder="Current Location"
             placeholderTextColor="#29aadb"
             selectionColor="#32b2e3"
             returnKeyType="done"
+            handleClose={handleClose}
           />
           <Field
             onChangeText={text => updateQuery(text)}
@@ -103,4 +106,9 @@ const styles = {
   },
 };
 
-export default connect(null, { updateQuery })(Header);
+const mapStateToProps = state => ({
+  searchQuery: state.forms.searchQuery,
+  destination: state.forms.destination
+});
+
+export default connect(mapStateToProps, { updateQuery, updateDestination })(Header);

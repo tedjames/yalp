@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { View, TouchableHighlight, Text } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { updateDestination } from '../../../Actions';
 
-export default class Option extends Component {
+class Option extends Component {
   render() {
+    const { label, updateDestination } = this.props;
     return (
-      <TouchableHighlight activeOpacity={0.95} onPress={() => null}>
+      <TouchableHighlight activeOpacity={0.95} onPress={() => updateDestination(label)}>
         <View style={styles.container}>
           <MaterialCommunityIcons
             style={styles.icon}
@@ -13,7 +16,7 @@ export default class Option extends Component {
             size={17}
             color="#888"
           />
-          <Text style={styles.label}>{this.props.label}</Text>
+          <Text style={styles.label}>{label}</Text>
         </View>
       </TouchableHighlight>
     );
@@ -42,3 +45,5 @@ const styles = {
     marginBottom: 17,
   }
 };
+
+export default connect(null, { updateDestination })(Option);

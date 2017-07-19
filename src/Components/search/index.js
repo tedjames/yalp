@@ -242,7 +242,7 @@ class SearchModal extends Component {
 
   render() {
     console.log('SearchModal: render');
-    const { showSearchModal, searchQuery } = this.props;
+    const { showSearchModal } = this.props;
 
     if (showSearchModal) {
       const headerOpacity = { opacity: this.state.headerOpacity };
@@ -250,7 +250,6 @@ class SearchModal extends Component {
       return (
         <View style={styles.container}>
           <Header
-            searchQuery={searchQuery}
             headerOpacity={headerOpacity}
             headerPosition={headerPosition}
             handleClose={this.handleClose}
