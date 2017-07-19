@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Animated, Keyboard } from 'react-native';
+import { Animated } from 'react-native';
 import Option from './option';
 
 export default class LocationHistory extends Component {
@@ -9,7 +9,8 @@ export default class LocationHistory extends Component {
     return (
       <Animated.ScrollView
         style={[{ flex: 1 }, opacity, position]}
-        onScroll={() => Keyboard.dismiss()}
+        keyboardDismissMode="on-drag"
+        keyboardShouldPersistTaps="always"
       >
         <Option label="295 5th avenue, New York, NY 10016" />
         <Option label="72 Monroe avenue, Edison, NJ 08820" />

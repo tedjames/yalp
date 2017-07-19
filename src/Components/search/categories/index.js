@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Animated, Keyboard } from 'react-native';
+import { View, Text, Animated } from 'react-native';
 import CategoryButton from './categoryButton';
 
 const styles = {
@@ -32,7 +32,8 @@ export default class Categories extends Component {
     return (
       <Animated.ScrollView
         style={[{ flex: 1 }, opacity, position]}
-        onScroll={() => Keyboard.dismiss()}
+        keyboardDismissMode="on-drag"
+        keyboardShouldPersistTaps="always"
       >
         <Text style={styles.feedSection}>Top Categories</Text>
         <View style={styles.row}>
