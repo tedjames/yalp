@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
 import NavReducer from './navReducer';
-import FieldsReducer from './fieldsReducer';
+import FormsReducer from './formsReducer';
 
 export default combineReducers({
   nav: NavReducer,
-  fields: FieldsReducer
+  forms: FormsReducer
 });
