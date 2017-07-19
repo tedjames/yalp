@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View, Animated, TouchableOpacity } from 'react-native';
+import { View, Animated, TouchableOpacity, TextInput, Easing } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { updateQuery, updateDestination } from '../../../Actions';
-import Field from './field';
+import { updateQuery, updateDestination } from '../../../Actions'
 
 class Header extends Component {
   constructor(props) {
@@ -11,9 +10,41 @@ class Header extends Component {
 
     this.state = {
       locationField: '',
-      searchField: ''
+      searchField: '',
+      searchBackgroundColor: new Animated.Value(0),
+      destinationBackgroundColor: new Animated.Value(0)
     };
   }
+  // Focus animation handlers
+  animateSearchFocus() {
+    Animated.timing(this.state.searchBackgroundColor, {
+      toValue: 1,
+      duration: 350,
+      easing: Easing.in(Easing.poly(1))
+    }).start();
+  }
+  animateSearchUnfocus() {
+    Animated.timing(this.state.searchBackgroundColor, {
+      toValue: 0,
+      duration: 350,
+      easing: Easing.in(Easing.poly(1))
+    }).start();
+  }
+  animateDestinationFocus() {
+    Animated.timing(this.state.destinationBackgroundColor, {
+      toValue: 1,
+      duration: 350,
+      easing: Easing.in(Easing.poly(1))
+    }).start();
+  }
+  animateDestinationUnfocus() {
+    Animated.timing(this.state.destinationBackgroundColor, {
+      toValue: 0,
+      duration: 350,
+      easing: Easing.in(Easing.poly(1))
+    }).start();
+  }
+
   render() {
     const {
       headerOpacity,
@@ -26,6 +57,15 @@ class Header extends Component {
       updateDestination,
       destination
     } = this.props;
+    const destinationBackgroundColor = this.state.destinationBackgroundColor.interpolate({
+      inputRange: [0, 1],
+      outputRange: ['rgb(247, 247, 247)', 'rgb(235, 235, 235)']
+    });
+    const searchBackgroundColor = this.state.searchBackgroundColor.interpolate({
+      inputRange: [0, 1],
+      outputRange: ['rgb(247, 247, 247)', 'rgb(235, 235, 235)']
+    });
+    const focusSearch = textInput => textInput.focus();
     return (
       <Animated.View style={[styles.header, headerOpacity, headerPosition]}>
         <View style={styles.icons}>
@@ -38,26 +78,48 @@ class Header extends Component {
         </View>
 
         <View style={{ flex: 1, marginTop: 40 }}>
-          <Field
-            onChangeText={destination => updateDestination(destination)}
-            onFocus={() => showLocationHistory()}
-            value={destination}
-            placeholder="Current Location"
-            placeholderTextColor="#29aadb"
-            selectionColor="#32b2e3"
-            returnKeyType="done"
-            handleClose={handleClose}
-          />
-          <Field
-            onChangeText={text => updateQuery(text)}
-            onFocus={() => showCategories()}
-            value={searchQuery}
-            placeholder="What to eat?"
-            placeholderTextColor="#7b7c82"
-            selectionColor="#32b2e3"
-            returnKeyType="search"
-            handleClose={handleClose}
-          />
+          <Animated.View
+            style={[styles.fieldContainer, { backgroundColor: destinationBackgroundColor }]}
+          >
+            <TextInput
+              ref={component => this.destinationField = component}
+              style={[styles.field, { fontFamily: 'open-sans' }]}
+              onChangeText={destination => updateDestination(destination)}
+              value={destination}
+              placeholder="Current Location"
+              placeholderTextColor="#29aadb"
+              selectionColor="#32b2e3"
+              onFocus={() => {
+                this.animateDestinationFocus();
+                showLocationHistory();
+              }}
+              onEndEditing={() => this.animateDestinationUnfocus()}
+              clearButtonMode="while-editing"
+              returnKeyType="done"
+              onSubmitEditing={() => this.searchField.focus()}
+            />
+          </Animated.View>
+          <Animated.View
+            style={[styles.fieldContainer, { backgroundColor: searchBackgroundColor }]}
+          >
+            <TextInput
+              ref={component => this.searchField = component}
+              style={[styles.field, { fontFamily: 'open-sans' }]}
+              onChangeText={text => updateQuery(text)}
+              value={searchQuery}
+              placeholder="What to eat?"
+              placeholderTextColor="#7b7c82"
+              selectionColor="#32b2e3"
+              onFocus={() => {
+                this.animateSearchFocus();
+                showCategories();
+              }}
+              onEndEditing={() => this.animateSearchUnfocus()}
+              clearButtonMode="while-editing"
+              returnKeyType="search"
+              onSubmitEditing={handleClose}
+            />
+          </Animated.View>
         </View>
       </Animated.View>
     );
@@ -103,6 +165,22 @@ const styles = {
     height: 6,
     width: 6,
     backgroundColor: '#333'
+  },
+  fieldContainer: {
+    backgroundColor: 'rgb(238, 238, 238)',
+    height: 33,
+    borderRadius: 3,
+    justifyContent: 'center',
+    marginTop: 10,
+    borderWidth: 0.5,
+    borderColor: '#f6f6f6',
+    paddingLeft: 7.5,
+    marginRight: 20,
+    right: 5
+  },
+  field: {
+    height: 32.5,
+    fontSize: 14
   },
 };
 
