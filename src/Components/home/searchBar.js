@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { View, Text, TouchableOpacity } from 'react-native';
-import { Font } from 'expo';
 import { Octicons } from '@expo/vector-icons';
 import { toggleFilter, toggleSearch } from '../../Actions';
 
@@ -54,13 +53,6 @@ class SearchBar extends Component {
       fontLoaded: false,
     };
   }
-  async componentDidMount() {
-    await Font.loadAsync({
-      'open-sans-light': require('../../../assets/fonts/OpenSans-Light.ttf'),
-    });
-
-    this.setState({ fontLoaded: true });
-  }
   render() {
     const { toggleSearch, toggleFilter, searchQuery } = this.props;
     return (
@@ -71,7 +63,7 @@ class SearchBar extends Component {
           style={{ flex: 4, flexDirection: 'row', alignItems: 'center', height: '100%' }}
         >
           <View style={styles.squareIcon} />
-          {this.state.fontLoaded ? <Text style={styles.searchText}>{searchQuery === '' ? 'What to eat?' : searchQuery}</Text> : null}
+          <Text style={styles.searchText}>{searchQuery === '' ? 'What to eat?' : searchQuery}</Text>
         </TouchableOpacity>
 
         <View style={styles.divider} />

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableHighlight } from 'react-native';
-import { Font } from 'expo';
 import { Ionicons, SimpleLineIcons, FontAwesome } from '@expo/vector-icons';
 
 const styles = {
@@ -17,7 +16,7 @@ const styles = {
     marginRight: 5
   },
   optionName: {
-    fontFamily: 'open-sans-regular',
+    fontFamily: 'open-sans',
     fontSize: 14,
     color: '#222'
   },
@@ -38,12 +37,6 @@ export default class Option extends Component {
     this.state = {
       fontLoaded: false,
     };
-  }
-  async componentDidMount() {
-    await Font.loadAsync({
-      'open-sans-regular': require('../../../assets/fonts/OpenSans-Regular.ttf')
-    });
-    this.setState({ fontLoaded: true });
   }
   handlePress() {
     this.setState({ checked: !this.state.checked });
@@ -91,14 +84,14 @@ export default class Option extends Component {
     }
   }
   render() {
-    const { fontLoaded, checked } = this.state;
+    const { checked } = this.state;
     const { name } = this.props;
     return (
       <TouchableHighlight activeOpacity={0.95} onPress={this.handlePress}>
         <View style={styles.option}>
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
             <View style={styles.iconContainer}>{this.renderIcon()}</View>
-            {fontLoaded ? <Text style={styles.optionName}>{name}</Text> : null}
+            <Text style={styles.optionName}>{name}</Text>
           </View>
           {checked ? <Ionicons name="ios-checkmark-outline" style={styles.checkmark} size={41} color="#60BA62" /> : null}
         </View>

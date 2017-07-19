@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { View, Text, Animated, Keyboard } from 'react-native';
-import { Font } from 'expo';
 import CategoryButton from './categoryButton';
 
 const styles = {
@@ -27,22 +26,7 @@ const styles = {
 };
 
 export default class Categories extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      fontLoaded: false,
-    };
-  }
-  async componentDidMount() {
-    await Font.loadAsync({
-      'open-sans': require('../../../../assets/fonts/OpenSans-Regular.ttf'),
-    });
-
-    this.setState({ fontLoaded: true });
-  }
   render() {
-    const { fontLoaded } = this.state;
     const opacity = { opacity: this.props.opacity };
     const position = { transform: [{ translateY: this.props.position }] };
     return (
@@ -50,7 +34,7 @@ export default class Categories extends Component {
         style={[{ flex: 1 }, opacity, position]}
         onScroll={() => Keyboard.dismiss()}
       >
-        {fontLoaded ? <Text style={styles.feedSection}>Top Categories</Text> : null}
+        <Text style={styles.feedSection}>Top Categories</Text>
         <View style={styles.row}>
           <CategoryButton handleClose={this.props.handleClose} label="American" imageName="american" />
           <CategoryButton handleClose={this.props.handleClose} label="Asian" imageName="asian" />
@@ -67,7 +51,7 @@ export default class Categories extends Component {
           <CategoryButton handleClose={this.props.handleClose} label="Healthy" imageName="healthy" />
           <CategoryButton handleClose={this.props.handleClose} label="Ice Cream" imageName="iceCream" />
         </View>
-        {fontLoaded ? <Text style={styles.feedSection}>More Categories</Text> : null}
+        <Text style={styles.feedSection}>More Categories</Text>
         <View style={styles.row}>
           <CategoryButton handleClose={this.props.handleClose} label="Indian" imageName="indian" />
           <CategoryButton handleClose={this.props.handleClose} label="Mexican" imageName="mexican" />

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { TouchableOpacity, Image, View, Text } from 'react-native';
-import { Font } from 'expo';
 import { updateQuery } from '../../../Actions';
 
 class CategoryButton extends Component {
@@ -10,19 +9,11 @@ class CategoryButton extends Component {
     this.fetchImage = this.fetchImage.bind(this);
 
     this.state = {
-      fontLoaded: false,
       image: require('../../../../assets/images/sushi.jpg')
     };
   }
   componentWillMount() {
     this.fetchImage(this.props.imageName);
-  }
-  async componentDidMount() {
-    await Font.loadAsync({
-      'open-sans': require('../../../../assets/fonts/OpenSans-Regular.ttf'),
-    });
-
-    this.setState({ fontLoaded: true });
   }
   fetchImage(imageName) {
     switch (imageName) {
@@ -76,7 +67,7 @@ class CategoryButton extends Component {
       >
         <Image style={styles.image} source={image}>
           <View style={styles.imageBackdrop}>
-            {this.state.fontLoaded ? <Text style={styles.categoryName}>{label}</Text> : null}
+            <Text style={styles.categoryName}>{label}</Text>
           </View>
         </Image>
       </TouchableOpacity>

@@ -19,7 +19,7 @@ const styles = {
   },
   submitText: {
     alignSelf: 'center',
-    fontFamily: 'rubik-regular',
+    fontFamily: 'rubik',
     fontSize: 13,
     color: '#222',
     letterSpacing: 1
@@ -27,26 +27,12 @@ const styles = {
 };
 
 export default class Submit extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      fontLoaded: false,
-    };
-  }
-  async componentDidMount() {
-    await Font.loadAsync({
-      'rubik-regular': require('../../../assets/fonts/Rubik-Regular.ttf'),
-    });
-    this.setState({ fontLoaded: true });
-  }
   render() {
-    const { fontLoaded } = this.state;
     const { onSubmit } = this.props;
     return (
       <View style={styles.submitButton}>
         <TouchableOpacity style={{ flex: 1, justifyContent: 'center' }} onPress={() => onSubmit()}>
-          {fontLoaded ? <Text style={styles.submitText}>DONE</Text> : null}
+          <Text style={styles.submitText}>DONE</Text>
         </TouchableOpacity>
       </View>
     );

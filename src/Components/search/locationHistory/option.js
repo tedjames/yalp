@@ -1,23 +1,8 @@
 import React, { Component } from 'react';
 import { View, TouchableHighlight, Text } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { Font } from 'expo';
 
 export default class Option extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      fontLoaded: false,
-    };
-  }
-  async componentDidMount() {
-    await Font.loadAsync({
-      'open-sans': require('../../../../assets/fonts/OpenSans-Light.ttf'),
-    });
-
-    this.setState({ fontLoaded: true });
-  }
   render() {
     return (
       <TouchableHighlight activeOpacity={0.95} onPress={() => null}>
@@ -28,7 +13,7 @@ export default class Option extends Component {
             size={17}
             color="#888"
           />
-          {this.state.fontLoaded ? <Text style={styles.label}>{this.props.label}</Text> : null}
+          <Text style={styles.label}>{this.props.label}</Text>
         </View>
       </TouchableHighlight>
     );

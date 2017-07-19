@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Animated, Text, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { Font } from 'expo';
 
 const styles = {
   filterHeader: {
@@ -15,7 +14,7 @@ const styles = {
     paddingLeft: 20
   },
   resetText: {
-    fontFamily: 'rubik-regular',
+    fontFamily: 'rubik',
     color: '#333',
     letterSpacing: 0.5,
     fontSize: 12
@@ -28,21 +27,7 @@ const styles = {
 };
 
 export default class Header extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      fontLoaded: false,
-    };
-  }
-  async componentDidMount() {
-    await Font.loadAsync({
-      'rubik-regular': require('../../../assets/fonts/Rubik-Regular.ttf')
-    });
-    this.setState({ fontLoaded: true });
-  }
   render() {
-    const { fontLoaded } = this.state;
     const { handleClose, headerOpacity, headerPosition } = this.props;
     return (
       <Animated.View style={[styles.filterHeader, headerOpacity, headerPosition]}>
@@ -50,7 +35,7 @@ export default class Header extends Component {
           <Ionicons style={styles.closeIcon} name="ios-close" size={42.5} color="#3A3A48" />
         </TouchableOpacity>
         <TouchableOpacity style={styles.resetButton}>
-          {fontLoaded ? <Text style={styles.resetText}>RESET</Text> : null}
+          <Text style={styles.resetText}>RESET</Text>
         </TouchableOpacity>
       </Animated.View>
     );

@@ -1,23 +1,13 @@
 import React, { Component } from 'react';
-import { View, TextInput, Animated, Easing } from 'react-native';
-import { Font } from 'expo';
+import { TextInput, Animated, Easing } from 'react-native';
 
 export default class Field extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      fontLoaded: false,
       backgroundColor: new Animated.Value(0),
     };
-  }
-
-  async componentDidMount() {
-    await Font.loadAsync({
-      'open-sans': require('../../../../assets/fonts/OpenSans-Regular.ttf'),
-    });
-
-    this.setState({ fontLoaded: true });
   }
 
   // Focus animation handlers
@@ -51,26 +41,23 @@ export default class Field extends Component {
       inputRange: [0, 1],
       outputRange: ['rgb(247, 247, 247)', 'rgb(235, 235, 235)']
     });
-
-    if (this.state.fontLoaded) {
-      return (
-        <Animated.View style={[styles.fieldContainer, { backgroundColor }]}>
-          <TextInput
-            style={[styles.field, { fontFamily: 'open-sans' }]}
-            onChangeText={onChangeText}
-            value={value}
-            placeholder={placeholder}
-            placeholderTextColor={placeholderTextColor}
-            selectionColor={selectionColor}
-            onFocus={() => this.animateFocus()}
-            onEndEditing={() => this.animateUnfocus()}
-            clearButtonMode="while-editing"
-            returnKeyType={returnKeyType}
-            onSubmitEditing={() => handleClose()}
-          />
-        </Animated.View>
-      );
-    } return <View />;
+    return (
+      <Animated.View style={[styles.fieldContainer, { backgroundColor }]}>
+        <TextInput
+          style={[styles.field, { fontFamily: 'open-sans' }]}
+          onChangeText={onChangeText}
+          value={value}
+          placeholder={placeholder}
+          placeholderTextColor={placeholderTextColor}
+          selectionColor={selectionColor}
+          onFocus={() => this.animateFocus()}
+          onEndEditing={() => this.animateUnfocus()}
+          clearButtonMode="while-editing"
+          returnKeyType={returnKeyType}
+          onSubmitEditing={() => handleClose()}
+        />
+      </Animated.View>
+    );
   }
 }
 
