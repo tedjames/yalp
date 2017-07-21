@@ -6,7 +6,7 @@ import SearchModal from '../search';
 import FilterModal from '../filter';
 import Maps from './maps';
 import Feed from '../feed';
-// test
+
 const { height } = Dimensions.get('window');
 const MINIMIZED_POSITION = height / 1.085;
 const MAXIMIZED_POSITION = 0;
