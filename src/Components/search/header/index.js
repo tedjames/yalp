@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { View, Animated, TouchableOpacity, TextInput, Easing } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { updateQuery, updateDestination } from '../../../Actions'
+import { updateQuery, updateDestination } from '../../../Actions';
 
 class Header extends Component {
   constructor(props) {
