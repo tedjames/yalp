@@ -10,7 +10,7 @@ const styles = {
     justifyContent: 'space-between',
     width: '100%',
     bottom: 0,
-    paddingBottom: 40,
+    paddingBottom: 75,
     paddingTop: 5,
     paddingRight: 60,
     paddingLeft: 60
