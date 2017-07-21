@@ -25,6 +25,7 @@ export default class Home extends Component {
     const panResponder = PanResponder.create({
       onStartShouldSetPanResponder: () => true,
       onPanResponderMove: (event, gesture) => {
+        this.setState({ showBackdrop: true });
         if (this.state.minimized) {
           position.setValue(MINIMIZED_POSITION + gesture.dy);
         } else {
@@ -45,7 +46,7 @@ export default class Home extends Component {
       }
     });
 
-    this.state = { panResponder, position, translateY, minimized: true };
+    this.state = { panResponder, position, translateY, minimized: true, showBackdrop: false };
   }
   // componentWillReceiveProps(props) {
   //   if (this.props.showSearchModal !== props.showSearchModal) {
@@ -56,7 +57,7 @@ export default class Home extends Component {
     this.setState({ minimized: true });
     Animated.spring(this.state.position, {
       toValue: MINIMIZED_POSITION
-    }).start();
+    }).start(this.setState({ showBackdrop: false }));
   }
   forceExpand() {
     this.setState({ minimized: false });
@@ -110,7 +111,7 @@ export default class Home extends Component {
       height: '100%',
       width: '100%',
       top: 0,
-      zIndex: this.state.minimized ? -5 : 3
+      zIndex: this.state.showBackdrop ? 3 : -5
     };
     return (
       <View style={{ flex: 1 }}>
