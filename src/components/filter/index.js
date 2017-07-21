@@ -18,7 +18,7 @@ const styles = {
     width: '100%',
     height: '100%',
     alignItems: 'center',
-    zIndex: 1
+    zIndex: 5
   },
   modal: {
     height: modalHeight,
@@ -26,12 +26,14 @@ const styles = {
     backgroundColor: '#fff',
     borderBottomRightRadius: 5,
     borderBottomLeftRadius: 5,
-    paddingTop: 20
+    paddingTop: 20,
+    zIndex: 6
   },
   backdrop: {
     height: '100%',
     width: '100%',
     backgroundColor: '#000',
+    zIndex: 5
   }
 };
 
