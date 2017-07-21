@@ -20,7 +20,7 @@ const styles = {
 export default class Shortcuts extends Component {
   render() {
     return (
-      <LinearGradient style={styles.gradientBar} colors={['rgba(238, 238, 238, 0)', 'rgba(238, 238, 238, 0.85)']} locations={[0, 0.75]}>
+      <LinearGradient style={styles.gradientBar} colors={['rgba(238, 238, 238, 0)', 'rgba(238, 238, 238, 0.85)']} locations={[0, 0.5]}>
         <Shortcut label="Breakfast" />
         <Shortcut label="Cafe" />
         <Shortcut label="Fast Food" />
