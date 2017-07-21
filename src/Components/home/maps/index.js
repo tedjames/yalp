@@ -49,8 +49,8 @@ export default class Maps extends Component {
     const region = {
       latitude: location.coords.latitude,
       longitude: location.coords.longitude,
-      latitudeDelta: 0.007,
-      longitudeDelta: 0.0001,
+      latitudeDelta: 0.008,
+      longitudeDelta: 0.0002,
     };
     this.setState({ location, region });
   }
