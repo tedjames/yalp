@@ -28,6 +28,12 @@ export default class Maps extends Component {
     }
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    // only re-render this component if the location changes
+    // (prevents re-render when reacting to panResponder in parent)
+    return nextState.location !== this.state.location;
+  }
+
   getLocationAsync = async () => {
     const { status } = await Permissions.askAsync(Permissions.LOCATION);
     if (status !== 'granted') {
