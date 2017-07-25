@@ -29,9 +29,11 @@ export default class Maps extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    // only re-render this component if the location changes
-    // (prevents re-render when reacting to panResponder in parent)
-    return nextState.location !== this.state.location;
+    // only re-render this component if new data is found
+    // NOTE: NEED TO TEST LOCATION UPDATING W/ NEW RETURN STATEMENT BELOW
+    // return nextState.location !== this.state.location;
+    // return false; // < -- change this to "nextProps.data !== this.props.data" later
+    return nextState.locationUpdating;
   }
 
   getLocationAsync = async () => {
@@ -52,7 +54,8 @@ export default class Maps extends Component {
       latitudeDelta: 0.008,
       longitudeDelta: 0.0002,
     };
-    this.setState({ location, region });
+    this.setState({ location, region, locationUpdating: true });
+    this.setState({ locationUpdating: false });
   }
 
   render() {
