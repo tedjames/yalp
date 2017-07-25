@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Animated } from 'react-native';
+import { View, Animated, TouchableOpacity } from 'react-native';
 
 export default class Feed extends Component {
   render() {
@@ -8,8 +8,10 @@ export default class Feed extends Component {
         style={[styles.container, this.props.containerStyle]}
         {...this.props.pan}
       >
-        <View style={styles.card} />
-        <View style={styles.card2} />
+        <TouchableOpacity style={{ flex: 1, height: '100%' }} onPress={this.props.forceExpand} activeOpacity={1}>
+          <View style={styles.card} />
+          <View style={styles.card2} />
+        </TouchableOpacity>
       </Animated.View>
     );
   }

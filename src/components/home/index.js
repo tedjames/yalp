@@ -22,8 +22,14 @@ export default class Home extends Component {
     const position = new Animated.Value(MINIMIZED_POSITION);
     const translateY = new Animated.Value(0);
 
+    // used for checking if a gesture was a tap/press or a swipe in any direction
+    const isTouch = ({ dx, dy }) => dx !== 0 && dy !== 0;
+
     const panResponder = PanResponder.create({
-      onStartShouldSetPanResponder: () => true,
+      // These 3 lifecycle functions disable panResponder on tap/press (fixes TouchableOpacity bug)
+      onStartShouldSetPanResponder: (event, gesture) => isTouch(gesture),
+      onStartShouldSetPanResponderCapture: (event, gesture) => isTouch(gesture),
+      onMoveShouldSetPanResponderCapture: (event, gesture) => isTouch(gesture),
       onPanResponderMove: (event, gesture) => {
         this.setState({ showBackdrop: true });
         if (this.state.minimized) {
@@ -48,11 +54,7 @@ export default class Home extends Component {
 
     this.state = { panResponder, position, translateY, minimized: true, showBackdrop: false };
   }
-  // componentWillReceiveProps(props) {
-  //   if (this.props.showSearchModal !== props.showSearchModal) {
-  //     props.showSearchModal ? this.forceHide() : this.forceShow();
-  //   }
-  // }
+
   forceMinimize() {
     this.setState({ minimized: true });
     Animated.spring(this.state.position, {
@@ -60,7 +62,7 @@ export default class Home extends Component {
     }).start(this.setState({ showBackdrop: false }));
   }
   forceExpand() {
-    this.setState({ minimized: false });
+    this.setState({ minimized: false, showBackdrop: true });
     Animated.spring(this.state.position, {
       toValue: 0
     }).start();
@@ -122,7 +124,12 @@ export default class Home extends Component {
         <Maps />
         <SearchBar />
         <Shortcuts />
-        <Feed containerStyle={containerStyle} pan={this.state.panResponder.panHandlers} />
+        <Feed
+          containerStyle={containerStyle}
+          pan={this.state.panResponder.panHandlers}
+          forceMinimize={this.forceMinimize}
+          forceExpand={this.forceExpand}
+        />
       </View>
     );
   }
