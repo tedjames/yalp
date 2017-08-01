@@ -75,7 +75,7 @@ export default class Arrow extends Component {
   }
   render() {
     const { topArrowOpacity, midArrowOpacity, bottomArrowOpacity } = this.state;
-    const iconSize = 24;
+    const iconSize = 23;
     return (
       <TouchableOpacity style={styles.iconContainer} activeOpacity={0.6}>
         <Animated.View style={{ flex: 1, opacity: topArrowOpacity }}>
@@ -101,6 +101,7 @@ const styles = {
   iconContainer: {
     paddingTop: 20,
     paddingBottom: 20,
+    right: 5,
     opacity: 0.9,
     height: 60,
     width: 60,
