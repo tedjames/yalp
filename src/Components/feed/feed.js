@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
-import { View, ScrollView, Text } from 'react-native';
+import { View, ScrollView, Text, Dimensions } from 'react-native';
 import Arrow from './arrow';
+
+const { width } = Dimensions.get('window');
+const cardWidth = width / 1.1;
 
 class Feed extends Component {
   render() {
@@ -9,9 +12,30 @@ class Feed extends Component {
     }
     return (
       <View style={styles.container}>
-        <ScrollView>
+        <View style={styles.header}>
           <Arrow />
           <Text style={styles.headerText}>Popular near you</Text>
+        </View>
+        <ScrollView style={styles.scrollView}>
+          <View style={styles.feedSection}>
+            <ScrollView indicatorStyle="white" snapToInterval={cardWidth} horizontal>
+              <View style={styles.card} />
+              <View style={styles.card} />
+              <View style={styles.card} />
+              <View style={styles.card} />
+              <View style={styles.card} />
+            </ScrollView>
+          </View>
+          <View style={styles.feedSection}>
+            <Text style={styles.sectionText}>Recommended</Text>
+            <ScrollView horizontal>
+              <View style={styles.card} />
+              <View style={styles.card} />
+              <View style={styles.card} />
+              <View style={styles.card} />
+              <View style={styles.card} />
+            </ScrollView>
+          </View>
         </ScrollView>
       </View>
     );
@@ -25,15 +49,48 @@ const styles = {
     width: '100%',
     alignSelf: 'center',
     position: 'absolute',
-    backgroundColor: '#222',
+    backgroundColor: '#1a1a1a',
     zIndex: 10
+  },
+  header: {
+    flex: 1,
+    position: 'absolute',
+    width: '100%',
+    height: 135,
+    backgroundColor: '#0a0a0a'
   },
   headerText: {
     color: '#fff',
     fontFamily: 'open-sans-light',
     fontSize: 28,
-    marginTop: 0,
-    marginLeft: 20
+    position: 'absolute',
+    top: 85,
+    left: 20,
+    backgroundColor: 'transparent'
+  },
+  sectionText: {
+    color: '#fff',
+    fontFamily: 'open-sans-light',
+    fontSize: 28,
+    marginTop: 5,
+    marginBottom: 15,
+    marginLeft: 20,
+    backgroundColor: 'transparent'
+  },
+  scrollView: {
+    top: 135
+  },
+  feedSection: {
+    marginTop: 25
+  },
+  card: {
+    height: 275,
+    width: cardWidth,
+    marginRight: 5,
+    marginLeft: 5,
+    marginBottom: 5,
+    alignSelf: 'center',
+    backgroundColor: '#f5f5f5'
   }
 };
 
