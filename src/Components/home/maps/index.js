@@ -14,7 +14,8 @@ export default class Maps extends Component {
 
     this.state = {
       location: { coords: { latitude: 0, longitude: 0 } },
-      errorMessage: null
+      errorMessage: null,
+      locationUpdating: false
     };
   }
 
