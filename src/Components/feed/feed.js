@@ -12,6 +12,7 @@ class Feed extends Component {
     }
     return (
       <View style={styles.container}>
+        <StatusBar hidden animated />
         <View style={styles.header}>
           <Arrow />
           <Text style={styles.headerText}>Popular near you</Text>
