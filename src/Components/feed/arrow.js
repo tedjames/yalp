@@ -8,9 +8,9 @@ export default class Arrow extends Component {
     this.pulseArrows = this.pulseArrows.bind(this);
 
     this.state = {
-      bottomArrowOpacity: new Animated.Value(0.55),
-      midArrowOpacity: new Animated.Value(0.55),
-      topArrowOpacity: new Animated.Value(0.55)
+      bottomArrowOpacity: new Animated.Value(0.4),
+      midArrowOpacity: new Animated.Value(0.4),
+      topArrowOpacity: new Animated.Value(0.4)
     };
   }
   componentDidMount() {
@@ -20,8 +20,8 @@ export default class Arrow extends Component {
     const { topArrowOpacity, midArrowOpacity, bottomArrowOpacity } = this.state;
     Animated.sequence([
       Animated.timing(bottomArrowOpacity, {
-        toValue: 0.99,
-        duration: 130,
+        toValue: 0.85,
+        duration: 140,
         useNativeDriver: true
       }),
       Animated.parallel([
@@ -38,7 +38,7 @@ export default class Arrow extends Component {
       ]),
       Animated.parallel([
         Animated.timing(bottomArrowOpacity, {
-          toValue: 0.55,
+          toValue: 0.4,
           duration: 125,
           useNativeDriver: true
         }),
@@ -48,26 +48,26 @@ export default class Arrow extends Component {
           useNativeDriver: true
         }),
         Animated.timing(topArrowOpacity, {
-          toValue: 0.775,
+          toValue: 0.625,
           duration: 115,
           useNativeDriver: true
         })
       ]),
       Animated.parallel([
         Animated.timing(midArrowOpacity, {
-          toValue: 0.55,
-          duration: 105,
+          toValue: 0.4,
+          duration: 110,
           useNativeDriver: true
         }),
         Animated.timing(topArrowOpacity, {
-          toValue: 0.65,
-          duration: 105,
+          toValue: 0.55,
+          duration: 110,
           useNativeDriver: true
         })
       ]),
       Animated.timing(topArrowOpacity, {
-        toValue: 0.55,
-        duration: 120,
+        toValue: 0.4,
+        duration: 150,
         useNativeDriver: true
       }),
       Animated.delay(800)
@@ -75,16 +75,17 @@ export default class Arrow extends Component {
   }
   render() {
     const { topArrowOpacity, midArrowOpacity, bottomArrowOpacity } = this.state;
+    const iconSize = 24;
     return (
       <TouchableOpacity style={styles.iconContainer} activeOpacity={0.6}>
         <Animated.View style={{ flex: 1, opacity: topArrowOpacity }}>
-          <Ionicons style={styles.backIcon} name="ios-arrow-up" size={25} />
+          <Ionicons style={styles.backIcon} name="ios-arrow-up" size={iconSize} />
         </Animated.View>
         <Animated.View style={{ flex: 1, opacity: midArrowOpacity }}>
-          <Ionicons style={[styles.backIcon, { bottom: 21 }]} name="ios-arrow-up" size={25} />
+          <Ionicons style={[styles.backIcon, { bottom: 0 }]} name="ios-arrow-up" size={iconSize} />
         </Animated.View>
         <Animated.View style={{ flex: 1, opacity: bottomArrowOpacity }}>
-          <Ionicons style={[styles.backIcon, { bottom: 42 }]} name="ios-arrow-up" size={25} />
+          <Ionicons style={[styles.backIcon, { bottom: 0 }]} name="ios-arrow-up" size={iconSize} />
         </Animated.View>
       </TouchableOpacity>
     );
@@ -93,16 +94,17 @@ export default class Arrow extends Component {
 
 const styles = {
   backIcon: {
-    flex: 1,
     color: '#e8e8e8',
     backgroundColor: 'transparent',
-    transform: [{ scaleX: 1.11 }, { scaleY: 0.725 }]
+    transform: [{ scaleX: 1.12 }, { scaleY: 0.725 }]
   },
   iconContainer: {
-    flex: 1,
-    alignSelf: 'flex-start',
-    paddingLeft: 20,
     paddingTop: 20,
-    opacity: 0.9
+    paddingBottom: 20,
+    opacity: 0.9,
+    height: 60,
+    width: 60,
+    alignItems: 'center',
+    backgroundColor: 'transparent'
   }
 };
