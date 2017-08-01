@@ -5,7 +5,7 @@ import SearchBar from './searchBar';
 import SearchModal from '../search';
 import FilterModal from '../filter';
 import Maps from './maps';
-import Feed from '../feed';
+import { FeedContainer, Feed } from '../feed';
 
 const { height } = Dimensions.get('window');
 const MINIMIZED_POSITION = height / 1.085;
@@ -124,12 +124,13 @@ export default class Home extends Component {
         <Maps />
         <SearchBar />
         <Shortcuts />
-        <Feed
+        <FeedContainer
           containerStyle={containerStyle}
           pan={this.state.panResponder.panHandlers}
           forceMinimize={this.forceMinimize}
           forceExpand={this.forceExpand}
         />
+        <Feed minimized={this.state.minimized} />
       </View>
     );
   }
