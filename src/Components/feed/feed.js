@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, ScrollView, Text, Dimensions } from 'react-native';
+import { View, ScrollView, Text, Dimensions, StatusBar } from 'react-native';
 import Arrow from './arrow';
 
 const { width } = Dimensions.get('window');
@@ -77,16 +77,16 @@ const styles = {
     fontSize: 28,
     position: 'absolute',
     top: 85,
-    left: 20,
+    left: 15,
     backgroundColor: 'transparent'
   },
   sectionText: {
-    color: '#fff',
+    color: '#e0e0e0',
     fontFamily: 'open-sans-light',
-    fontSize: 28,
+    fontSize: 20,
     marginTop: 5,
-    marginBottom: 15,
-    marginLeft: 20,
+    marginBottom: 10,
+    marginLeft: 15,
     backgroundColor: 'transparent'
   },
   scrollView: {
