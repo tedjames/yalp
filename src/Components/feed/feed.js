@@ -28,7 +28,7 @@ class Feed extends Component {
           </View>
           <View style={styles.feedSection}>
             <Text style={styles.sectionText}>Recommended</Text>
-            <ScrollView horizontal>
+            <ScrollView indicatorStyle="white" snapToInterval={cardWidth} horizontal>
               <View style={styles.card} />
               <View style={styles.card} />
               <View style={styles.card} />
@@ -36,6 +36,17 @@ class Feed extends Component {
               <View style={styles.card} />
             </ScrollView>
           </View>
+          <View style={styles.feedSection}>
+            <Text style={styles.sectionText}>Recommended</Text>
+            <ScrollView indicatorStyle="white" snapToInterval={cardWidth} horizontal>
+              <View style={styles.card} />
+              <View style={styles.card} />
+              <View style={styles.card} />
+              <View style={styles.card} />
+              <View style={styles.card} />
+            </ScrollView>
+          </View>
+          <View style={styles.footer} />
         </ScrollView>
       </View>
     );
@@ -45,7 +56,7 @@ class Feed extends Component {
 const styles = {
   container: {
     flex: 1,
-    height: 2000,
+    height: '100%',
     width: '100%',
     alignSelf: 'center',
     position: 'absolute',
@@ -78,7 +89,9 @@ const styles = {
     backgroundColor: 'transparent'
   },
   scrollView: {
-    top: 135
+    flex: 1,
+    top: 135,
+    height: '100%'
   },
   feedSection: {
     marginTop: 25
@@ -91,6 +104,11 @@ const styles = {
     marginBottom: 5,
     alignSelf: 'center',
     backgroundColor: '#f5f5f5'
+  },
+  footer: {
+    flex: 1,
+    height: 150,
+    width: '100%'
   }
 };
 
