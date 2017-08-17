@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Animated, TouchableOpacity } from 'react-native';
+import { Animated, TouchableOpacity, Easing } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
 export default class Arrow extends Component {
@@ -8,9 +8,9 @@ export default class Arrow extends Component {
     this.pulseArrows = this.pulseArrows.bind(this);
 
     this.state = {
-      bottomArrowOpacity: new Animated.Value(0.4),
-      midArrowOpacity: new Animated.Value(0.4),
-      topArrowOpacity: new Animated.Value(0.4)
+      bottomArrowOpacity: new Animated.Value(0.175),
+      midArrowOpacity: new Animated.Value(0.25),
+      topArrowOpacity: new Animated.Value(0.275)
     };
   }
   componentDidMount() {
@@ -20,54 +20,55 @@ export default class Arrow extends Component {
     const { topArrowOpacity, midArrowOpacity, bottomArrowOpacity } = this.state;
     Animated.sequence([
       Animated.timing(bottomArrowOpacity, {
-        toValue: 0.85,
+        toValue: 0.65,
         duration: 140,
         useNativeDriver: true
       }),
       Animated.parallel([
         Animated.timing(bottomArrowOpacity, {
-          toValue: 0.65,
+          toValue: 0.45,
           duration: 125,
           useNativeDriver: true
         }),
         Animated.timing(midArrowOpacity, {
-          toValue: 0.9,
+          toValue: 0.7,
           duration: 125,
           useNativeDriver: true
         })
       ]),
       Animated.parallel([
         Animated.timing(bottomArrowOpacity, {
-          toValue: 0.4,
-          duration: 125,
+          toValue: 0.175,
+          duration: 115,
           useNativeDriver: true
         }),
         Animated.timing(midArrowOpacity, {
-          toValue: 0.65,
+          toValue: 0.4,
           duration: 115,
           useNativeDriver: true
         }),
         Animated.timing(topArrowOpacity, {
-          toValue: 0.625,
+          toValue: 0.6,
           duration: 115,
           useNativeDriver: true
         })
       ]),
       Animated.parallel([
         Animated.timing(midArrowOpacity, {
-          toValue: 0.4,
-          duration: 110,
+          toValue: 0.25,
+          duration: 120,
           useNativeDriver: true
         }),
         Animated.timing(topArrowOpacity, {
-          toValue: 0.55,
-          duration: 110,
+          toValue: 0.35,
+          duration: 120,
           useNativeDriver: true
         })
       ]),
       Animated.timing(topArrowOpacity, {
-        toValue: 0.4,
+        toValue: 0.275,
         duration: 150,
+        easing: Easing.ease.out,
         useNativeDriver: true
       }),
       Animated.delay(800)
@@ -75,19 +76,22 @@ export default class Arrow extends Component {
   }
   render() {
     const { topArrowOpacity, midArrowOpacity, bottomArrowOpacity } = this.state;
+    const { arrowScale, arrowRight } = this.props;
     const iconSize = 23;
     return (
-      <TouchableOpacity style={styles.iconContainer} activeOpacity={0.6}>
-        <Animated.View style={{ flex: 1, opacity: topArrowOpacity }}>
-          <Ionicons style={styles.backIcon} name="ios-arrow-up" size={iconSize} />
-        </Animated.View>
-        <Animated.View style={{ flex: 1, opacity: midArrowOpacity }}>
-          <Ionicons style={[styles.backIcon, { bottom: 0 }]} name="ios-arrow-up" size={iconSize} />
-        </Animated.View>
-        <Animated.View style={{ flex: 1, opacity: bottomArrowOpacity }}>
-          <Ionicons style={[styles.backIcon, { bottom: 0 }]} name="ios-arrow-up" size={iconSize} />
-        </Animated.View>
-      </TouchableOpacity>
+      <Animated.View style={[{ right: arrowRight, transform: [{ scale: arrowScale }] }]}>
+        <TouchableOpacity style={styles.iconContainer} activeOpacity={0.6}>
+          <Animated.View style={{ flex: 1, opacity: topArrowOpacity }}>
+            <Ionicons style={styles.backIcon} name="ios-arrow-up" size={iconSize} />
+          </Animated.View>
+          <Animated.View style={{ flex: 1, opacity: midArrowOpacity }}>
+            <Ionicons style={[styles.backIcon, { bottom: 0 }]} name="ios-arrow-up" size={iconSize} />
+          </Animated.View>
+          <Animated.View style={{ flex: 1, opacity: bottomArrowOpacity }}>
+            <Ionicons style={[styles.backIcon, { bottom: 0 }]} name="ios-arrow-up" size={iconSize} />
+          </Animated.View>
+        </TouchableOpacity>
+      </Animated.View>
     );
   }
 }
