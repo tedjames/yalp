@@ -27,7 +27,27 @@ class Feed extends Component {
       easing: Easing.ease.out
     });
     const sectionHeaderOpacity = this.state.scrollY.interpolate({
-      inputRange: [50, sectionHeight * 1.05],
+      inputRange: [0, sectionHeight * 1.05],
+      outputRange: [1, 0],
+      extrapolate: 'clamp'
+    });
+    const sectionHeaderOpacity2 = this.state.scrollY.interpolate({
+      inputRange: [sectionHeight * 1.05, sectionHeight * 2.05],
+      outputRange: [1, 0],
+      extrapolate: 'clamp'
+    });
+    const sectionHeaderOpacity3 = this.state.scrollY.interpolate({
+      inputRange: [sectionHeight * 2.05, sectionHeight * 3.05],
+      outputRange: [1, 0],
+      extrapolate: 'clamp'
+    });
+    const sectionHeaderOpacity4 = this.state.scrollY.interpolate({
+      inputRange: [sectionHeight * 3.05, sectionHeight * 4.05],
+      outputRange: [1, 0],
+      extrapolate: 'clamp'
+    });
+    const sectionHeaderOpacity5 = this.state.scrollY.interpolate({
+      inputRange: [sectionHeight * 4.05, sectionHeight * 5.05],
       outputRange: [1, 0],
       extrapolate: 'clamp'
     });
@@ -55,7 +75,9 @@ class Feed extends Component {
             </ScrollView>
           </View>
           <View style={styles.feedSection}>
-            <Animated.Text style={[styles.sectionText, { opacity: sectionHeaderOpacity }]}>Recommended</Animated.Text>
+            <Animated.Text style={[styles.sectionText, { opacity: sectionHeaderOpacity }]}>
+              Recommended
+            </Animated.Text>
             <ScrollView indicatorStyle="white" snapToInterval={cardWidth} decelerationRate={'fast'} horizontal>
               <View style={styles.card} />
               <View style={styles.card} />
@@ -65,7 +87,9 @@ class Feed extends Component {
             </ScrollView>
           </View>
           <View style={styles.feedSection}>
-            <Text style={styles.sectionText}>Delivery near you</Text>
+            <Animated.Text style={[styles.sectionText, { opacity: sectionHeaderOpacity2 }]}>
+              Delivery near you
+            </Animated.Text>
             <ScrollView indicatorStyle="white" snapToInterval={cardWidth} decelerationRate={'fast'} horizontal>
               <View style={styles.card} />
               <View style={styles.card} />
@@ -75,7 +99,9 @@ class Feed extends Component {
             </ScrollView>
           </View>
           <View style={styles.feedSection}>
-            <Text style={styles.sectionText}>Bookmarks</Text>
+            <Animated.Text style={[styles.sectionText, { opacity: sectionHeaderOpacity3 }]}>
+              Bookmarks
+            </Animated.Text>
             <ScrollView indicatorStyle="white" snapToInterval={cardWidth} decelerationRate={'fast'} horizontal>
               <View style={styles.card} />
               <View style={styles.card} />
@@ -85,7 +111,9 @@ class Feed extends Component {
             </ScrollView>
           </View>
           <View style={styles.feedSection}>
-            <Text style={styles.sectionText}>Top Categories</Text>
+            <Animated.Text style={[styles.sectionText, { opacity: sectionHeaderOpacity4 }]}>
+              Top Categories
+            </Animated.Text>
             <ScrollView indicatorStyle="white" snapToInterval={cardWidth} decelerationRate={'fast'} horizontal>
               <View style={styles.card} />
               <View style={styles.card} />
