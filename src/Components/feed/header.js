@@ -13,13 +13,13 @@ export default class Header extends Component {
   render() {
     const { scrollY, sectionHeight } = this.props;
     const headerTextTop = scrollY.interpolate({
-      inputRange: [0, 110],
+      inputRange: [25, sectionHeight * 0.65],
       outputRange: [85, 23],
       extrapolate: 'clamp',
       easing: Easing.ease.out
     });
     const headerTextLeft = scrollY.interpolate({
-      inputRange: [0, 110],
+      inputRange: [0, sectionHeight * 0.5],
       outputRange: [15, 65],
       extrapolate: 'clamp',
       easing: Easing.ease.out
@@ -36,49 +36,64 @@ export default class Header extends Component {
       extrapolate: 'clamp'
     });
     const arrowScale = scrollY.interpolate({
-      inputRange: [0, 110],
-      outputRange: [1, 0.8],
+      inputRange: [0, sectionHeight * 0.5],
+      outputRange: [1, 0.85],
+      extrapolate: 'clamp'
+    });
+    const arrowOpacity = scrollY.interpolate({
+      inputRange: [0, sectionHeight * 0.9],
+      outputRange: [1, 0.9],
       extrapolate: 'clamp'
     });
     const arrowRight = scrollY.interpolate({
-      inputRange: [0, 110],
-      outputRange: [0, 25],
+      inputRange: [0, sectionHeight * 1],
+      outputRange: [0, 12],
+      extrapolate: 'clamp'
+    });
+    const arrowTop = scrollY.interpolate({
+      inputRange: [0, sectionHeight * 0.9],
+      outputRange: [0, 31],
+      extrapolate: 'clamp'
+    });
+    const arrowRotate = scrollY.interpolate({
+      inputRange: [0, sectionHeight * 0.9],
+      outputRange: ['0deg', '90deg'],
       extrapolate: 'clamp'
     });
     const headerHeight = scrollY.interpolate({
-      inputRange: [0, 110],
+      inputRange: [25, sectionHeight * 0.65],
       outputRange: [135, 65],
       extrapolate: 'clamp',
       easing: Easing.ease.out
     });
-    const sectionOpacity1 = scrollY.interpolate({
-      inputRange: [0, sectionHeight * 0.5],
+    const headerOpacity = scrollY.interpolate({
+      inputRange: [0, sectionHeight * 1.25],
       outputRange: [1, 0],
       extrapolate: 'clamp'
     });
-    const sectionOpacity2 = scrollY.interpolate({
+    const headerOpacity2 = scrollY.interpolate({
       inputRange: [sectionHeight / 1.25, sectionHeight, sectionHeight * 2],
       outputRange: [0, 1, 0],
       extrapolate: 'clamp'
     });
-    const sectionOpacity3 = scrollY.interpolate({
+    const headerOpacity3 = scrollY.interpolate({
       inputRange: [(sectionHeight * 2) / 1.25, sectionHeight * 2, sectionHeight * 3],
       outputRange: [0, 1, 0],
       extrapolate: 'clamp'
     });
-    const sectionOpacity4 = scrollY.interpolate({
+    const headerOpacity4 = scrollY.interpolate({
       inputRange: [(sectionHeight * 3) / 1.25, sectionHeight * 3, sectionHeight * 4],
       outputRange: [0, 1, 0],
       extrapolate: 'clamp'
     });
-    const sectionOpacity5 = scrollY.interpolate({
+    const headerOpacity5 = scrollY.interpolate({
       inputRange: [(sectionHeight * 4) / 1.25, sectionHeight * 4],
       outputRange: [0, 1],
       extrapolate: 'clamp'
     });
     return (
       <Animated.View style={[styles.header, { height: headerHeight }]}>
-        <Arrow arrowRight={arrowRight} arrowScale={arrowScale} />
+        <Arrow arrowRight={arrowRight} arrowScale={arrowScale} arrowRotate={arrowRotate} arrowTop={arrowTop} arrowOpacity={arrowOpacity} />
         <Animated.Text
           style={[styles.headerText,
             {
@@ -86,7 +101,7 @@ export default class Header extends Component {
               left: headerTextLeft,
               color: headerTextColor,
               fontSize: headerFontSize,
-              opacity: sectionOpacity1
+              opacity: headerOpacity
             }]}
         >
           Popular near you
@@ -98,7 +113,7 @@ export default class Header extends Component {
               left: headerTextLeft,
               color: headerTextColor,
               fontSize: headerFontSize,
-              opacity: sectionOpacity2
+              opacity: headerOpacity2
             }]}
         >
           Recommended
@@ -110,7 +125,7 @@ export default class Header extends Component {
               left: headerTextLeft,
               color: headerTextColor,
               fontSize: headerFontSize,
-              opacity: sectionOpacity3
+              opacity: headerOpacity3
             }]}
         >
           Delivery near you
@@ -122,7 +137,7 @@ export default class Header extends Component {
               left: headerTextLeft,
               color: headerTextColor,
               fontSize: headerFontSize,
-              opacity: sectionOpacity4
+              opacity: headerOpacity4
             }]}
         >
           Bookmarks
@@ -134,7 +149,7 @@ export default class Header extends Component {
               left: headerTextLeft,
               color: headerTextColor,
               fontSize: headerFontSize,
-              opacity: sectionOpacity5
+              opacity: headerOpacity5
             }]}
         >
           Top Categories

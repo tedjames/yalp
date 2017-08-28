@@ -76,10 +76,10 @@ export default class Arrow extends Component {
   }
   render() {
     const { topArrowOpacity, midArrowOpacity, bottomArrowOpacity } = this.state;
-    const { arrowScale, arrowRight } = this.props;
+    const { arrowScale, arrowRight, arrowRotate, arrowTop, arrowOpacity } = this.props;
     const iconSize = 23;
     return (
-      <Animated.View style={[{ right: arrowRight, transform: [{ scale: arrowScale }] }]}>
+      <Animated.View style={[{ width: 100, opacity: arrowOpacity, right: arrowRight, top: arrowTop, transform: [{ scale: arrowScale }, { rotate: arrowRotate }] }]}>
         <TouchableOpacity style={styles.iconContainer} activeOpacity={0.6}>
           <Animated.View style={{ flex: 1, opacity: topArrowOpacity }}>
             <Ionicons style={styles.backIcon} name="ios-arrow-up" size={iconSize} />
