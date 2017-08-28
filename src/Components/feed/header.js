@@ -52,7 +52,7 @@ export default class Header extends Component {
       easing: Easing.ease.out
     });
     const sectionOpacity1 = scrollY.interpolate({
-      inputRange: [20, sectionHeight * 0.5],
+      inputRange: [0, sectionHeight * 0.5],
       outputRange: [1, 0],
       extrapolate: 'clamp'
     });
@@ -69,6 +69,11 @@ export default class Header extends Component {
     const sectionOpacity4 = scrollY.interpolate({
       inputRange: [(sectionHeight * 3) / 1.25, sectionHeight * 3, sectionHeight * 4],
       outputRange: [0, 1, 0],
+      extrapolate: 'clamp'
+    });
+    const sectionOpacity5 = scrollY.interpolate({
+      inputRange: [(sectionHeight * 4) / 1.25, sectionHeight * 4],
+      outputRange: [0, 1],
       extrapolate: 'clamp'
     });
     return (
@@ -121,6 +126,18 @@ export default class Header extends Component {
             }]}
         >
           Bookmarks
+        </Animated.Text>
+        <Animated.Text
+          style={[styles.headerText,
+            {
+              top: headerTextTop,
+              left: headerTextLeft,
+              color: headerTextColor,
+              fontSize: headerFontSize,
+              opacity: sectionOpacity5
+            }]}
+        >
+          Top Categories
         </Animated.Text>
       </Animated.View>
     );
