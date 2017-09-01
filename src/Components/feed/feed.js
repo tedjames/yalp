@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, ScrollView, Text, Dimensions, StatusBar, Animated, Easing } from 'react-native';
+import * as Animatable from 'react-native-animatable';
 import Header from './header';
 
 const { width, height } = Dimensions.get('window');
@@ -13,11 +14,12 @@ class Feed extends Component {
 
     this.state = {
       scrollY: new Animated.Value(0),
-      scrollPosition: 0
+      scrollPosition: 0,
     };
   }
   render() {
-    if (this.props.minimized) {
+    const { minimized, delay } = this.props;
+    if (minimized) {
       return null;
     }
     const headerHeight = this.state.scrollY.interpolate({
@@ -76,16 +78,10 @@ class Feed extends Component {
       outputRange: [1, 0],
       extrapolate: 'clamp'
     });
-    const sectionHeaderOpacity5 = this.state.scrollY.interpolate({
-      inputRange: [sectionHeight * 4.05, sectionHeight * 5.05],
-      outputRange: [1, 0],
-      extrapolate: 'clamp'
-    });
     const onScroll = Animated.event(
       [{ nativeEvent: { contentOffset: { y: this.state.scrollY } } }]
     );
     return (
-      <View style={styles.container}>
       <Animatable.View animation="fadeIn" delay={delay} style={styles.container}>
         <StatusBar hidden animated />
         <View style={{ height: 65, position: 'absolute', top: 0, width: '100%', backgroundColor: '#0a0a0a' }} />
@@ -97,64 +93,66 @@ class Feed extends Component {
           scrollEventThrottle={16}
           onScroll={onScroll}
         >
-          <View style={styles.feedSection}>
-            <ScrollView indicatorStyle="white" snapToInterval={cardWidth} decelerationRate={'fast'} horizontal>
+          <Animatable.View animation="fadeInUp" easing="ease-out-cubic" duration={1250} delay={125} style={styles.feedSection}>
+            <Animated.ScrollView style={{ opacity: sectionOpacity }} indicatorStyle="white" snapToInterval={cardWidth} decelerationRate={'fast'} horizontal>
               <View style={styles.card} />
               <View style={styles.card} />
               <View style={styles.card} />
               <View style={styles.card} />
               <View style={styles.card} />
-            </ScrollView>
-          </View>
-          <View style={styles.feedSection}>
-            <Animated.Text style={[styles.sectionText, { opacity: sectionHeaderOpacity }]}>
-              Recommended
-            </Animated.Text>
-            <ScrollView indicatorStyle="white" snapToInterval={cardWidth} decelerationRate={'fast'} horizontal>
+            </Animated.ScrollView>
+          </Animatable.View>
+          <Animatable.View animation="fadeInUp" easing="ease-out-cubic" duration={1250} delay={250} style={styles.feedSection}>
+            <Animatable.View animation="fadeIn" duration={2750} delay={10}>
+              <Animated.Text style={[styles.sectionText, { opacity: sectionHeaderOpacity }]}>
+                Recommended
+              </Animated.Text>
+            </Animatable.View>
+            <Animated.ScrollView indicatorStyle="white" style={{ opacity: sectionOpacity2 }} snapToInterval={cardWidth} decelerationRate={'fast'} horizontal>
               <View style={styles.card} />
               <View style={styles.card} />
               <View style={styles.card} />
               <View style={styles.card} />
               <View style={styles.card} />
-            </ScrollView>
-          </View>
-          <View style={styles.feedSection}>
+            </Animated.ScrollView>
+          </Animatable.View>
+          <Animatable.View animation="fadeInUp" easing="ease-out-cubic" duration={1250} delay={300} style={styles.feedSection}>
             <Animated.Text style={[styles.sectionText, { opacity: sectionHeaderOpacity2 }]}>
               Delivery near you
             </Animated.Text>
-            <ScrollView indicatorStyle="white" snapToInterval={cardWidth} decelerationRate={'fast'} horizontal>
+            <Animated.ScrollView style={{ opacity: sectionOpacity3 }} indicatorStyle="white" snapToInterval={cardWidth} decelerationRate={'fast'} horizontal>
               <View style={styles.card} />
               <View style={styles.card} />
               <View style={styles.card} />
               <View style={styles.card} />
               <View style={styles.card} />
-            </ScrollView>
-          </View>
-          <View style={styles.feedSection}>
+            </Animated.ScrollView>
+          </Animatable.View>
+          <Animatable.View animation="fadeInUp" easing="ease-out-cubic" duration={1250} delay={350} style={styles.feedSection}>
             <Animated.Text style={[styles.sectionText, { opacity: sectionHeaderOpacity3 }]}>
               Bookmarks
             </Animated.Text>
-            <ScrollView indicatorStyle="white" snapToInterval={cardWidth} decelerationRate={'fast'} horizontal>
+            <Animated.ScrollView style={{ opacity: sectionOpacity4 }} indicatorStyle="white" snapToInterval={cardWidth} decelerationRate={'fast'} horizontal>
               <View style={styles.card} />
               <View style={styles.card} />
               <View style={styles.card} />
               <View style={styles.card} />
               <View style={styles.card} />
-            </ScrollView>
-          </View>
-          <View style={styles.feedSection}>
+            </Animated.ScrollView>
+          </Animatable.View>
+          <Animatable.View animation="fadeInUp" easing="ease-out-cubic" duration={1250} style={styles.feedSection}>
             <Animated.Text style={[styles.sectionText, { opacity: sectionHeaderOpacity4 }]}>
               Top Categories
             </Animated.Text>
-            <ScrollView indicatorStyle="white" snapToInterval={cardWidth} decelerationRate={'fast'} horizontal>
+            <Animated.ScrollView style={{ opacity: sectionOpacity5 }} indicatorStyle="white" snapToInterval={cardWidth} decelerationRate={'fast'} horizontal>
               <View style={styles.card} />
               <View style={styles.card} />
               <View style={styles.card} />
               <View style={styles.card} />
               <View style={styles.card} />
-            </ScrollView>
-          </View>
-          <View style={styles.feedSection}>
+            </Animated.ScrollView>
+          </Animatable.View>
+          <Animatable.View animation="fadeInUp" easing="ease-out-cubic" duration={1250} style={styles.feedSection}>
             <Text style={styles.sectionText}>More Categories</Text>
             <ScrollView indicatorStyle="white" snapToInterval={cardWidth} decelerationRate={'fast'} horizontal>
               <View style={styles.card} />
@@ -163,10 +161,9 @@ class Feed extends Component {
               <View style={styles.card} />
               <View style={styles.card} />
             </ScrollView>
-          </View>
+          </Animatable.View>
           <View style={styles.footer} />
         </Animated.ScrollView>
-      </View>
       </Animatable.View>
     );
   }
