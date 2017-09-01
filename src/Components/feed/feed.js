@@ -26,6 +26,36 @@ class Feed extends Component {
       extrapolate: 'clamp',
       easing: Easing.ease.out
     });
+    const sectionOpacity = this.state.scrollY.interpolate({
+      inputRange: [0, sectionHeight * 0.9],
+      outputRange: [1, 0],
+      extrapolate: 'clamp',
+      useNativeDriver: true
+    });
+    const sectionOpacity2 = this.state.scrollY.interpolate({
+      inputRange: [sectionHeight * 1, sectionHeight * 1.9],
+      outputRange: [1, 0],
+      extrapolate: 'clamp',
+      useNativeDriver: true
+    });
+    const sectionOpacity3 = this.state.scrollY.interpolate({
+      inputRange: [sectionHeight * 2, sectionHeight * 2.9],
+      outputRange: [1, 0],
+      extrapolate: 'clamp',
+      useNativeDriver: true
+    });
+    const sectionOpacity4 = this.state.scrollY.interpolate({
+      inputRange: [sectionHeight * 3, sectionHeight * 3.9],
+      outputRange: [1, 0],
+      extrapolate: 'clamp',
+      useNativeDriver: true
+    });
+    const sectionOpacity5 = this.state.scrollY.interpolate({
+      inputRange: [sectionHeight * 4, sectionHeight * 4.9],
+      outputRange: [1, 0],
+      extrapolate: 'clamp',
+      useNativeDriver: true
+    });
     const sectionHeaderOpacity = this.state.scrollY.interpolate({
       inputRange: [0, sectionHeight * 1.05],
       outputRange: [1, 0],
