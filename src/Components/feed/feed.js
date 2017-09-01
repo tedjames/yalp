@@ -87,6 +87,7 @@ class Feed extends Component {
     return (
       <View style={styles.container}>
         <StatusBar hidden animated />
+        <View style={{ height: 65, position: 'absolute', top: 0, width: '100%', backgroundColor: '#0a0a0a' }} />
         <Header sectionHeight={sectionHeight} scrollY={this.state.scrollY} />
         <Animated.ScrollView
           style={[styles.scrollView, { top: headerHeight }]}
