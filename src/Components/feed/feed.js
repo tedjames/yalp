@@ -86,6 +86,7 @@ class Feed extends Component {
     );
     return (
       <View style={styles.container}>
+      <Animatable.View animation="fadeIn" delay={delay} style={styles.container}>
         <StatusBar hidden animated />
         <View style={{ height: 65, position: 'absolute', top: 0, width: '100%', backgroundColor: '#0a0a0a' }} />
         <Header sectionHeight={sectionHeight} scrollY={this.state.scrollY} />
@@ -166,6 +167,7 @@ class Feed extends Component {
           <View style={styles.footer} />
         </Animated.ScrollView>
       </View>
+      </Animatable.View>
     );
   }
 }
