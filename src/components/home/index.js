@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, StatusBar, Animated, PanResponder, Dimensions } from 'react-native';
+import { View, StatusBar, Animated, PanResponder, Dimensions, Easing } from 'react-native';
 import Shortcuts from './shortcuts';
 import SearchBar from './searchBar';
 import SearchModal from '../search';
@@ -18,7 +18,6 @@ export default class Home extends Component {
     super(props);
     this.forceMinimize = this.forceMinimize.bind(this);
     this.forceExpand = this.forceExpand.bind(this);
-    this.forceShow = this.forceShow.bind(this);
     this.forceExpandPress = this.forceExpandPress.bind(this);
 
     const position = new Animated.Value(MINIMIZED_POSITION);
@@ -54,7 +53,14 @@ export default class Home extends Component {
       }
     });
 
-    this.state = { panResponder, position, translateY, minimized: true, showBackdrop: false };
+    this.state = {
+      panResponder,
+      position,
+      translateY,
+      minimized: true,
+      showBackdrop: false,
+      delay: 265
+    };
   }
 
   forceMinimize() {
@@ -64,20 +70,19 @@ export default class Home extends Component {
     }).start(this.setState({ showBackdrop: false }));
   }
   forceExpand() {
-    this.setState({ minimized: false, showBackdrop: true });
+    this.setState({ showBackdrop: true, delay: 15 });
     Animated.spring(this.state.position, {
-      toValue: 0
-    }).start();
+      toValue: 0,
+      duration: 100
+    }).start(this.setState({ minimized: false }));
   }
-  forceHide() {
-    Animated.timing(this.state.translateY, {
-      toValue: 100
-    }).start();
-  }
-  forceShow() {
-    Animated.timing(this.state.translateY, {
-      toValue: 0
-    }).start();
+  forceExpandPress() {
+    this.setState({ showBackdrop: true, delay: 265 });
+    Animated.timing(this.state.position, {
+      toValue: 0,
+      duration: 1000,
+      easing: Easing.out(Easing.poly(4))
+    }).start(this.setState({ minimized: false }));
   }
   render() {
     const borderRadius = this.state.position.interpolate({
@@ -130,9 +135,9 @@ export default class Home extends Component {
           containerStyle={containerStyle}
           pan={this.state.panResponder.panHandlers}
           forceMinimize={this.forceMinimize}
-          forceExpand={this.forceExpand}
+          forceExpand={this.forceExpandPress}
         />
-        <Feed minimized={this.state.minimized} />
+        <Feed delay={this.state.delay} minimized={this.state.minimized} />
       </View>
     );
   }
