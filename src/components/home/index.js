@@ -18,18 +18,20 @@ export default class Home extends Component {
     super(props);
     this.forceMinimize = this.forceMinimize.bind(this);
     this.forceExpand = this.forceExpand.bind(this);
+    this.forceShow = this.forceShow.bind(this);
+    this.forceExpandPress = this.forceExpandPress.bind(this);
 
     const position = new Animated.Value(MINIMIZED_POSITION);
     const translateY = new Animated.Value(0);
 
-    // used for checking if a gesture was a tap/press or a swipe in any direction
-    const isTouch = ({ dx, dy }) => dx !== 0 && dy !== 0;
+    // returns false if a gesture was a tap/press and true if it's a swipe in any direction
+    const verifySwipe = ({ dx, dy }) => dx !== 0 && dy !== 0;
 
     const panResponder = PanResponder.create({
       // These 3 lifecycle functions disable panResponder on tap/press (fixes TouchableOpacity bug)
-      onStartShouldSetPanResponder: (event, gesture) => isTouch(gesture),
-      onStartShouldSetPanResponderCapture: (event, gesture) => isTouch(gesture),
-      onMoveShouldSetPanResponderCapture: (event, gesture) => isTouch(gesture),
+      onStartShouldSetPanResponder: (event, gesture) => verifySwipe(gesture),
+      onStartShouldSetPanResponderCapture: (event, gesture) => verifySwipe(gesture),
+      onMoveShouldSetPanResponderCapture: (event, gesture) => verifySwipe(gesture),
       onPanResponderMove: (event, gesture) => {
         this.setState({ showBackdrop: true });
         if (this.state.minimized) {
