@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, ScrollView, Text, Dimensions, StatusBar, Animated, Easing } from 'react-native';
+import { View, ScrollView, Text, Dimensions, StatusBar, Animated, Easing, TouchableOpacity } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import Header from './header';
 
@@ -11,11 +11,17 @@ const sectionHeight = height / 2;
 class Feed extends Component {
   constructor(props) {
     super(props);
-
+    this.handleHeaderPress = this.handleHeaderPress.bind(this);
     this.state = {
       scrollY: new Animated.Value(0),
       scrollPosition: 0,
     };
+  }
+  handleHeaderPress() {
+    this.refs.scrollView._component.scrollTo({ x: 0, y: 0, animated: true });
+    this.refs.feedContainer.fadeOutDown(350).then(() => {
+      this.props.forceMinimize();
+    });
   }
   render() {
     const { minimized, delay } = this.props;
@@ -23,6 +29,11 @@ class Feed extends Component {
       return null;
     }
     const headerHeight = this.state.scrollY.interpolate({
+      inputRange: [25, sectionHeight * 0.65],
+      outputRange: [135, 65],
+      extrapolate: 'clamp'
+    });
+    const headerBackground = this.state.scrollY.interpolate({
       inputRange: [0, 110],
       outputRange: [135, 65],
       extrapolate: 'clamp',
@@ -61,32 +72,39 @@ class Feed extends Component {
     const sectionHeaderOpacity = this.state.scrollY.interpolate({
       inputRange: [0, sectionHeight * 1.05],
       outputRange: [1, 0],
-      extrapolate: 'clamp'
+      extrapolate: 'clamp',
+      useNativeDriver: true
     });
     const sectionHeaderOpacity2 = this.state.scrollY.interpolate({
       inputRange: [sectionHeight * 1.05, sectionHeight * 2.05],
       outputRange: [1, 0],
-      extrapolate: 'clamp'
+      extrapolate: 'clamp',
+      useNativeDriver: true
     });
     const sectionHeaderOpacity3 = this.state.scrollY.interpolate({
       inputRange: [sectionHeight * 2.05, sectionHeight * 3.05],
       outputRange: [1, 0],
-      extrapolate: 'clamp'
+      extrapolate: 'clamp',
+      useNativeDriver: true
     });
     const sectionHeaderOpacity4 = this.state.scrollY.interpolate({
       inputRange: [sectionHeight * 3.05, sectionHeight * 4.05],
       outputRange: [1, 0],
-      extrapolate: 'clamp'
+      extrapolate: 'clamp',
+      useNativeDriver: true
     });
     const onScroll = Animated.event(
       [{ nativeEvent: { contentOffset: { y: this.state.scrollY } } }]
     );
     return (
-      <Animatable.View animation="fadeIn" delay={delay} style={styles.container}>
+      <Animatable.View ref="feedContainer" animation="fadeIn" delay={delay} style={styles.container}>
         <StatusBar hidden animated />
-        <View style={{ height: 65, position: 'absolute', top: 0, width: '100%', backgroundColor: '#0a0a0a' }} />
-        <Header sectionHeight={sectionHeight} scrollY={this.state.scrollY} />
+        <Animatable.View animation="fadeInUp" duration={1250} style={{ height: headerBackground, position: 'absolute', top: -50, width: '100%', backgroundColor: '#0b0b0b' }} />
+        <TouchableOpacity activeOpacity={1} onPress={this.handleHeaderPress}>
+          <Header sectionHeight={sectionHeight} scrollY={this.state.scrollY} />
+        </TouchableOpacity>
         <Animated.ScrollView
+          ref="scrollView"
           style={[styles.scrollView, { top: headerHeight }]}
           snapToInterval={sectionHeight}
           decelerationRate={'fast'}
