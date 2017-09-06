@@ -17,6 +17,7 @@ export default class Home extends Component {
   constructor(props) {
     super(props);
     this.forceMinimize = this.forceMinimize.bind(this);
+    this.forceMinimizePress = this.forceMinimizePress.bind(this);
     this.forceExpand = this.forceExpand.bind(this);
     this.forceExpandPress = this.forceExpandPress.bind(this);
 
@@ -67,6 +68,14 @@ export default class Home extends Component {
     this.setState({ minimized: true });
     Animated.spring(this.state.position, {
       toValue: MINIMIZED_POSITION
+    }).start(this.setState({ showBackdrop: false }));
+  }
+  forceMinimizePress() {
+    this.setState({ minimized: true });
+    Animated.spring(this.state.position, {
+      toValue: MINIMIZED_POSITION,
+      duration: 300,
+      easing: Easing.in(Easing.poly(4))
     }).start(this.setState({ showBackdrop: false }));
   }
   forceExpand() {
@@ -137,7 +146,11 @@ export default class Home extends Component {
           forceMinimize={this.forceMinimize}
           forceExpand={this.forceExpandPress}
         />
-        <Feed delay={this.state.delay} minimized={this.state.minimized} />
+        <Feed
+          delay={this.state.delay}
+          minimized={this.state.minimized}
+          forceMinimize={this.forceMinimizePress}
+        />
       </View>
     );
   }
