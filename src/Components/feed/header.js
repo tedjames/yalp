@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Animated, Easing } from 'react-native';
-import Arrow from './arrow';
 import * as Animatable from 'react-native-animatable';
+import Arrow from './arrow';
 
 export default class Header extends Component {
   constructor(props) {
@@ -43,7 +43,7 @@ export default class Header extends Component {
     });
     const arrowOpacity = scrollY.interpolate({
       inputRange: [0, sectionHeight * 0.9],
-      outputRange: [1, 0.9],
+      outputRange: [0.9, 0.775],
       extrapolate: 'clamp'
     });
     const arrowRight = scrollY.interpolate({
